@@ -662,16 +662,112 @@
 
     \subsection{Cauchy Sequences}
     \begin{definition}[Cauchy Sequences]
-        A sequence $\xn$ is a Cauchy Sequence (or just called Cauchy), if $\forall \varep > 0$, there exists an $N \in \N$ such that for all $k, l \geq N$,
+        A sequence $\xn$ is a Cauchy Sequence (or just called Cauchy), if $\forall \varep > 0$, there exists an $N \in \N$ such that for all $k, \ell \geq N$,
         \begin{equation*}
-            \abs{x_{k} - x_{l}} < \varep.
+            \abs{x_{k} - x_{\ell}} < \varep.
         \end{equation*} 
     \end{definition}
     \begin{remark}
-        Effectively this just means that we need terms to become aritrarily closer to each other as we get further along in the sequence. No huge gaps like in $(-1)^{n}$, where the terms never get closer.
+        Effectively this just means that we need terms to become aritrarily closer to each other as we get further along in the sequence.
     \end{remark}
     \textbf{Work on a figure for this one later.}
+    \begin{eg}
+        We can show that $\set{\frac{1}{n}}_{n = 1}^{\infty}$ is a Cauchy Sequence: 
+        Set $\varep > 0$, and $N = \ceil{\frac{2}{\varep}} > \frac{2}{\varep}$. Then for all $k, \ell \geq N$, we have
+        \begin{align*}
+            \abs{\frac{1}{k} - \frac{1}{\ell}} &\leq \abs{\frac{1}{k}} + \abs{\frac{1}{\ell}} \\
+                                               &< \frac{\varep}{2} + \frac{\varep}{2} \\
+                                               &= \varep
+        \end{align*}
+    \end{eg}
+    \begin{eg}
+        The sequence $\set{(-1)^{n}}_{n = 1}^{\infty}$ is not a Cauchy Sequence:
+        Let $k \geq N$ be even, with $\ell = k + 1$ (consecutive odd number after $k$). Then
+        \begin{align*}
+            \abs{(-1)^{k} + (-1)^{l}} &= \abs{1 + (-1)} \\
+                                      &= 2 \geq \varep, ~ \forall \varep \leq 2.
+        \end{align*}
+        Hence $\set{(-1)^{n}}_{n = 1}^{\infty}$ is not Cauchy.
+    \end{eg}
+    \newpage
+    \begin{prop}
+        If a sequence is Cauchy then it is bounded.
+    \end{prop}
+    \begin{proof}
+        Assume that $\xn$ is a Cauchy Sequence. Let $\varep > 0$ (in this case we take $\varep = 1$). Take $N \in \N$ such that $\forall k, \ell \geq N$,
+        \begin{equation}
+            \abs{x_{k} - x_{\ell}} < 1. \label{eq:CauchyBoundedIneq}
+        \end{equation}
+        By the Reverse Triangle Inequality,
+        \begin{align*}
+            \abs{x_{k} - x_{\ell}} \leq \abs{\abs{x_{k}} - \abs{x_{\ell}}} \leq \abs{x_{k} - x_{\ell}} &< 1, \\
+                                                                           \implies \abs{x_{k}} - \abs{x_{\ell}} &< 1, \\
+                                                                           \abs{x_{k}} &< 1 + \abs{x_{\ell}}.
+        \end{align*}
+        Let $\ell = N$. Then we see that $\forall k \geq N$, 
+        \begin{equation}
+            \abs{x_{k}} < 1 + \abs{x_{\ell}} ~ \Longleftrightarrow ~ \abs{x_{k}} < \varep + \abs{x_{N}}. \label{eq:CauchyIneq2}
+        \end{equation}
 
+        Set 
+        \begin{equation*}
+            M = \max\{\underbrace{\abs{x_{1}}, \abs{x_{2}}, \dots, \abs{x_{N - 1}}}_{\text{bound terms $1 \leq n < N$}}, \underbrace{1 + \abs{x_{N}}}_{\text{by \eqref{eq:CauchyIneq2}}}\}. 
+        \end{equation*}
+
+        Thus $\abs{x_{n}} \leq M$, $\forall n \in \N$.
+    \end{proof}
+    \begin{theorem}[Convergent Sequences are Cauchy]
+        A sequence is Cauchy if and only if it converges. 
+    \end{theorem}
+    \begin{remark}
+        That is, every Cauchy sequence is convergent, and every convergent sequence is Cauchy. 
+    \end{remark}
+    \begin{proof}
+        First proving that Convergent $\implies$ Cauchy:
+        Take $\varep > 0$, and suppose that the sequence $\xn$ converges to a limit $L$.
+
+        Then there exists an $N \in \N$ such that $\forall n \geq N$, 
+        \begin{equation*}
+            \abs{x_{n} - L} < \frac{\varep}{2}.
+        \end{equation*}
+
+        Then for all $k, \ell \geq N$, 
+        \begin{align*}
+            \abs{x_{k} - x_{\ell}} &= \abs{x_{k} - L + L - x_{\ell}} \\
+                                   &\leq \abs{x_{k} - L} + \abs{L - x_{\ell}} ~ \text{(by $\Delta$--Ineq)} \\
+                                   &= \abs{x_{k} - L} + \abs{x_{\ell} - L} \\
+                                   &< \frac{\varep}{2} + \frac{\varep}{2} \\
+                                   &= \varep.
+        \end{align*}
+        Hence $\xn$ is also a Cauchy Sequence.
+
+        Now proving that Cauchy $\implies$ Convergence:
+        Assume that $\xn$ is a Cauchy Sequence. Then by Proposition 10 it is also Bounded. By Bolzano-Weierstrass, every bounded sequence has a convergent subsequence, $\set{x_{n_{i}}}_{i = 1}^{\infty}$. Let the limit of this subsequence be $L$.
+        \begin{note}
+            Bolzano-Weierstrass implies that every bounded sequence has a convergent subsequence. But, this means also that if a subsequence has a limit $L$, then the original sequence must also adopt the limit $L$ if it converges. So we just need to show that the original sequence also converges to $L$ using the convergent subsequence.
+        \end{note}
+
+        Take $\varep > 0$. Since $\xn$ is a Cauchy Sequence, there exists an $N_{1} \in \N$, so that $\forall k, \ell \geq N_{1}$, 
+        \begin{equation}
+            \abs{x_{k} - x_{\ell}} < \frac{\varep}{2}.\label{eq:Th4Ineq1}
+        \end{equation}
+        
+        By convergence of $\set{x_{n_{i}}}_{i = 1}^{\infty}$, there exists an $N_{2} \in \N$ so that $\forall i > N_{2}$, 
+        \begin{equation}
+            \abs{x_{n_{i}} - L} < \frac{\varep}{2}.\label{eq:Th4Ineq2}
+        \end{equation}
+
+        Take $N = \max\set{N_{1}, N_{2}}$. Now suppose that $i > N$ (so we can use the term $x_{n_{N + 1}}$, while knowing that $n_{i} \geq N$). 
+        Then $\forall n \geq N$,
+        \begin{align*}
+            \abs{x_{n} - L} &= \abs{x_{n} - x_{n_{N + 1}} + x_{n_{N + 1}} - L} \\
+                            &\leq \abs{x_{n} - x_{n_{N + 1}}} + \abs{x_{n_{N + 1}} - L}, ~ \text{(by $\Delta$--Ineq)} \\
+                            &< \underbrace{\frac{\varep}{2}}_{\text{from \eqref{eq:Th4Ineq1}}} + \underbrace{\frac{\varep}{2}}_{\text{from \eqref{eq:Th4Ineq2}}} = \varep.
+        \end{align*} 
+        Hence, Cauchy sequences are convergent. 
+
+        Thus, all convergent sequences are Cauchy sequences, and all Cauchy sequences are convergent.
+    \end{proof}
     \section{Series}
     This section will be worked on once I finish the Series lectures. 
 \end{document}

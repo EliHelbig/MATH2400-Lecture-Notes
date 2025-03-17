@@ -1,0 +1,671 @@
+\documentclass[12pt]{article}
+
+\usepackage{EliMacros}
+\usepackage[dvipsnames]{xcolor}
+
+%============== For header and footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%  -------- Margin Lengths and Line Settings for Footer
+\newlength{\evenmarginwidth}
+\setlength{\evenmarginwidth}{\evensidemargin-1.41cm}
+\renewcommand{\footruleskip}{5pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%  --------   Normal Headers
+\fancyhf{} % clear all fields
+\fancyfoot[C]{\textbf{Chapter \leftmark}}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\fancyhfoffset[R]{\evenmarginwidth}
+
+% Contents Pages
+\fancypagestyle{contents}{
+    \fancyhf{}
+    \fancyfoot[R]{\text{Note: Theorem numbering issues will be fixed later}~ $\mid$ ~ \thepage}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% Margin and Paragraph Spacing
+\setlength{\textwidth}{168.0truemm}
+\setlength{\oddsidemargin}{-4.0mm}
+\setlength{\evensidemargin}{-4.0mm}
+\parindent=0mm
+\parskip=2mm
+\setlength{\textheight}{240.0truemm}
+\setlength{\topmargin}{-18.0truemm}
+
+% ------------- Test Code for Theorems/Definitions etc. (Not Mine: Source from https://github.com/gillescastel/lecture-notes)
+\newtcbtheorem[number within=subsection]{boxtheorem}{Theorem}{%
+  boxrule=1pt,
+  colframe=darkgray,
+  colback=white,
+  box align=top,
+  enhanced jigsaw,
+  fonttitle=\bfseries
+}{th}
+
+\newtcbtheorem[number within=subsection]{boxdefinition}{Definition}{%
+  boxrule=1pt,
+  colframe=darkgray,
+  colback=white,
+  box align=top,
+  enhanced jigsaw,
+  fonttitle=\bfseries
+}{dfn}
+
+\newtcbtheorem[number within=subsection]{boxcorollary}{Corollary}{%
+  boxrule=1pt,
+  colframe=darkgray,
+  colback=white,
+  box align=top,
+  enhanced jigsaw,
+  fonttitle=\bfseries
+}{cr}
+
+% theorems
+\makeatother
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+
+
+\theoremstyle{definition}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+    }
+]{thmgreenbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+    }
+]{thmbluebox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue
+    }
+]{thmblueline}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!5,
+    }
+]{thmredbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!1,
+    },
+    qed=\qedsymbol
+]{thmproofbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+    },
+]{thmexplanationbox}
+
+\declaretheorem[style=thmgreenbox, name=Definition]{definition}
+\declaretheorem[style=thmbluebox, numbered=no, name=Example]{eg}
+\declaretheorem[style=thmredbox, name=Proposition]{prop}
+\declaretheorem[style=thmredbox, name=Theorem]{theorem}
+\declaretheorem[style=thmredbox, name=Lemma]{lemma}
+\declaretheorem[style=thmredbox, numbered=no, name=Corollary]{corollary}
+
+\declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
+\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+
+
+\declaretheorem[style=thmexplanationbox, name=Proof]{tmpexplanation}
+\newenvironment{explanation}[1][]{\vspace{-10pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+
+\declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
+\declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
+
+
+% ----- Test Code Ends
+
+% Macros just for this document
+\newcommand{\xn}{\set{x_{n}}_{n = 1}^{\infty}}
+\newcommand{\nlim}{\lim_{n\rightarrow\infty}}
+\newcommand{\Overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\begin{document}
+
+\thispagestyle{contents}
+\begin{center}
+    \centerline{\large{\textbf{Real Analysis -- MATH2400 Full Lecture Notes}}}
+\end{center}
+
+\hrule
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+   \subsection{The Real Numbers}
+   \subsubsection{Defining the Real Numbers}
+    The \textit{Real Numbers}, denoted $\R$, are numbers such that for all Cauchy sequences (which will be defined formally in Section 2.4), $(x_{n})_{n}^{\infty}$, for $x_{n} \in \Q$ with $\lim_{n \rightarrow \infty}x_{n} = q^{\ast}$, where $q^{\ast} \in \Overbar{\Q}$, then $\R = \Q \cup \Overbar{\Q}$. 
+    That is, the Real Numbers are defined as the set of rational numbers and the limit-points of sequences of rational numbers which approach irrational numbers. 
+
+    \begin{remark}
+        So we can think of the real numbers as the rational numbers, plus sequences of rational numbers which fill in the 'gaps' of the rationals that would be given by transcendental numbers like $\pi$ or $e$ or other numbers like $\sqrt{2}$, $\sqrt{17}$ and so on.
+    \end{remark}
+    \begin{eg}
+        Consider $\sqrt{2}$, which can be defined as the limit point of the following recursive sequence of rational numbers: 
+        \begin{equation*}
+            x_{0} = 1, ~~ x_{n + 1} = \frac{1}{2}\brackets{x_{n} + \frac{2}{x_{n}}} \quad \implies \quad \lim_{n \rightarrow \infty}x_{n + 1} = \sqrt{2}
+        \end{equation*}
+    \end{eg}
+
+    In general, we have the following order of sets,
+    \begin{equation*}
+            \N \subset \Z \subset \Q \subset \R.
+    \end{equation*} 
+    \begin{figure}[H]
+        \centering
+        \scalebox{1}{\import{./figures/}{SetHierarchy.pdf_tex}}
+    \end{figure}
+
+    \begin{remark}
+        The real numbers consitute what we call a \textit{\textbf{complete}, \textbf{ordered} field}.
+    \end{remark}
+
+    \newpage
+
+   \subsubsection{The Properties of the Real Numbers}
+    A \textbf{field}, $\mathcal{F}$ is a set of numbers $A$, equipped with the operations $+$ and $\cdot$ (which we know as addition and multiplication) which obey the following properties:
+    \begin{enumerate}
+        \item \textbf{Commutativity}: $\forall x, ~ y \in \R$, $x + y = y + x$, and $x \cdot y = y \cdot x$.
+        \item \textbf{Associativity}: $\forall x, ~y, ~z \in \R$, $(x + y) + z = x + (y + z)$, and $(x \cdot y) \cdot z = x \cdot (y \cdot z)$.
+        \item \textbf{Distributivity} of multiplication over addition: $\forall x, ~y, ~y \in \R$, $(x + y) \cdot z = x \cdot z + y \cdot z$.
+        \item \textbf{Additive Identity}: There exists an element $0 \in \R$, called the \textit{additive identity}, as it satisfies $x + 0 = x$, $\forall x \in \R$.
+        \item \textbf{Multiplicative Identity}: There exists an element $1 \in \R$, called the \textit{multiplicative identity}, as it satisfies $x \cdot 1 = x$, $\forall x \in \R$.
+        \item \textbf{Additive Inverse}: Every real number $x$ admits an \textit{additive inverse}, $-x$, with $x + (-x) = 0$. Extension of this idea defines what we know as subtraction.
+        \item \textbf{Multiplicative Inverse}: Every non-zero real number $x$ admits an \textit{multiplicative inverse}, $\frac{1}{x}$, with $x \cdot \brackets{\frac{1}{x}} = 1$. Extension of this idea defines what we know as division.
+    \end{enumerate}
+
+    A field $\mathcal{F}$ is said to be \textit{totally ordered} if we can define the idea of $x \leq y$ and $x \geq y$. This ordering admits two important properties,
+    \begin{enumerate}
+            \item For any two real numbers $x$ and $y$, exactly one of $x < y$, $x = y$ or $x > y$ is true, and
+            \item if $x \leq y$ and $y \leq z$, then $x \leq z$.
+    \end{enumerate} 
+    It is also true that this ordering (or what we will call an inequality from now on) allows multiplication and addition, following all of the previous additive and multiplicative rules of a field. 
+
+    From all of these rules we also derive some other simple properties for an ordered field, being that $0 \cdot x = 0$ for any $x \in \R$, $0 < 1$, and $x^{2} \geq 0$.
+
+    Another important operation we have is that of the \textit{absolute value}, which provides an idea of distance, defined as 
+    \begin{equation*}
+        \abs{x} = \begin{cases}
+            x & \mbox{if} ~ x \geq 0 \\
+            -x & \mbox{if} ~ x < 0
+        \end{cases}
+    \end{equation*}
+
+    \begin{remark}
+        This is also related to our idea of the \textit{principal square root}, as $\abs{x} = \sqrt{x^{2}}$, which is a property related to the \textit{completeness} of $\R$. This idea of \textit{completeness} is the distinguishing property of $\R$ compared to $\Q$. 
+    \end{remark}
+
+    \newpage
+
+    A set $X$ is \textit{complete} if every finite subset of $X$, $Y$ (so $Y \subseteq X$) which has an upper bound, admits a least upper bound as well. Any element of a subset of real numbers $y \in Y$ can be said to satisfy
+    \begin{equation*}
+        y \leq u, ~ \forall y \in Y \subseteq \R, ~ u \in \R 
+    \end{equation*}
+    where $u$ is what we call an \textit{upper bound}, which exists as a consequence of the \textit{ordering} of $Y$.
+    
+    However, we can say this is true of the rational numbers too, so what distinguishes the real numbers from the rationals?
+    Well, we can extend this idea to say that in the set of all possible upper bounds $U$ with, there exists an element of this set $u_{0}$, $u_{0} \in U$, such that $\forall u \in U$, 
+    \begin{equation*}
+        u_{0} \leq u
+    \end{equation*}
+    which we call the \textit{least upper bound} of $Y$, or the supremum of $Y$, denoted
+    \begin{equation*}
+        u_{0} = \sup (Y).
+    \end{equation*}
+    
+    A similar idea is that of the \textit{greatest lower bound} of a set $Y$ which is bounded below, which satisfies the property:
+    For all possible lower bounds $a$, there exists an $a_{0}$, called the \textit{greatest lower bound} or infimium of $Y$ (denoted $\inf{(Y)}$) if $\forall a$, 
+    \begin{equation*}
+        a \leq a_{0} = \inf{(Y)}
+    \end{equation*}
+
+    \textbf{Diagram Here}
+
+    If a set $Y$ is bounded above and below, and $\sup{(Y)} \in Y$, then $\sup{(Y)} = \max{(Y)}$ and $\inf{(Y)} = \min{(Y)}$.
+
+    \subsection{Intervals}
+    We write a \textit{closed} interval as
+    \begin{equation*}
+        [a, b] = \set{x \in \R: a \leq x \leq b},
+    \end{equation*}
+    and an \textit{open} intervals as,
+    \begin{equation*}
+        (a, b) = \set{x \in \R: a < x < b}.
+    \end{equation*}
+
+    So a closed interval contains its endpoints (and by extension it's minimal and maximal elements), while an open interval does not contain its endpoints. 
+
+    \begin{definition}[Least Upper Bound Property]
+        The \textit{least upper bound property} of $\R$ (or completeness property):
+        \begin{equation*}
+            \text{For all non-empty, finite subsets of $\R$, $A \subseteq \R$,} ~ \sup(A) ~ \text{exists, and} ~ \sup(A) \in \R.
+        \end{equation*}
+    \end{definition}
+    Equivalently, 
+    \begin{definition}[Greatest Lower Bound Property]
+        The \textit{greatest lower bound property} of $\R$:
+        \begin{equation*}
+            \text{For all non-empty, finite subsets of $\R$, $A \subseteq \R$,} ~ \inf(A) ~ \text{exists, and} ~ \inf(A) \in \R.
+        \end{equation*}
+    \end{definition}
+
+    \subsection{The Absolute Value}
+    The Absolute Value, which we defined earlier as 
+    \begin{equation*}
+        \abs{x} = \begin{cases}
+            x & \mbox{if} ~ x \geq 0 \\
+            -x & \mbox{if} ~ x < 0
+        \end{cases}
+    \end{equation*}
+    satisfies the following properties:
+    \begin{itemize}
+        \item $\abs{x} \geq 0$,
+        \item $\abs{x} = 0 ~ \Longleftrightarrow ~ x = 0$,
+        \item $\abs{-x} = \abs{x}$,
+        \item $\abs{xy} = \abs{x}\abs{y}$,
+        \item $\abs{x}^{2} = (\sqrt{x^{2}})^{2} = x^{2}$,
+        \item $\abs{x} \leq \abs{y} ~ \Longleftrightarrow ~ -y \leq x \leq y$,
+        \item $-\abs{x} \leq x \leq \abs{x}$.
+    \end{itemize}
+
+    \begin{prop}[The Triangle Inequality]
+        \begin{equation*}
+            \abs{x + y} \leq \abs{x} + \abs{y}
+        \end{equation*}
+    \end{prop}
+    \begin{proof}
+        Let $x$, $y \in \R$. Then we know that
+        \begin{equation}
+            -\abs{x} \leq x \leq \abs{x}, \label{eq:1.3.1}
+        \end{equation} 
+        and,
+        \begin{equation}
+            -\abs{y} \leq y \leq \abs{y}. \label{eq:1.3.2}   
+        \end{equation}
+
+        Adding \eqref{eq:1.3.1} and \eqref{eq:1.3.2},
+        \begin{equation*}
+            \begin{array}{rcccl}
+                -(\abs{x} + \abs{y}) & \leq & x + y & \leq &\abs{x} + \abs{y}. \\
+            \end{array}
+        \end{equation*}
+        Then since $-a \leq b \leq a$ implies that $\abs{b} \leq a$,
+        \begin{equation*}
+            \abs{x + y} \leq \abs{x} + \abs{y}.
+        \end{equation*}
+    \end{proof}
+
+    \begin{prop}[The Reverse Triangle Inequality]
+        \begin{equation*}
+            \abs{\abs{x} - \abs{y}} \leq \abs{x - y}.
+        \end{equation*}
+    \end{prop}
+    \begin{proof}
+        \textbf{Just copy and paste from Assignment 1 later.}
+    \end{proof} 
+
+    \begin{corollary}[The Generalised Triangle Inequality]
+        \begin{equation*}
+            \abs{x_{1} + x_{2} + \dots + x_{n}} \leq \abs{x_{1}} + \abs{x_{2}} + \dots + \abs{x_{n}}. 
+        \end{equation*}
+    \end{corollary}
+    \begin{proof}
+        We define the proposition $P(n): \abs{x_{1} + x_{2} + \dots + x_{n}} \leq \abs{x_{1}} + \abs{x_{2}} + \dots + \abs{x_{n}}$. 
+        
+        So by induction we first consider $n = 1$, where it is trivial to assess $P(1): \abs{x_{1}} \leq \abs{x_{1}}$ as true, where it adopting the equality. 
+
+        Suppose that $P(n)$ is true for $n > 1$. Then we shall show that $P(n) \implies P(n + 1)$. 
+        Then,
+        \begin{align*}
+            \abs{(x_{1} + x_{2} + \dots + x_{n}) + x_{n + 1}} &\leq \abs{x_{1} + x_{2} + \dots + x_{n}} + \abs{x_{n + 1}} \\
+            \intertext{but by assumption that $P(n): \abs{x_{1} + x_{2} + \dots + x_{n}} \leq \abs{x_{1}} + \abs{x_{2}} + \dots + \abs{x_{n}}$ holds,}
+                                                              &\leq \abs{x_{1}} + \abs{x_{2}} + \dots \abs{x_{n}} + \abs{x_{n + 1}} \Longleftrightarrow P(n + 1).
+        \end{align*}
+
+        Hence $P(n) \implies P(n + 1)$, and by induction,
+        \begin{equation*}
+            \abs{x_{1} + x_{2} + \dots + x_{n}} \leq \abs{x_{1}} + \abs{x_{2}} + \dots + \abs{x_{n}},
+        \end{equation*}
+        holds for $n \geq 1$.
+    \end{proof}
+\newpage
+\section{Sequences}
+    \subsection{Definitions}
+    \begin{definition}[Sequences]
+        A \textit{sequence} is a function,
+        \begin{equation*}
+            x: \N \rightarrow \R, \quad x_{n} = f(n),
+        \end{equation*}
+        so that $\brackets{x_{n}}_{n = 1}^{\infty} = \set{x_{1}, x_{2}, \dots}$.
+    \end{definition}
+    \begin{eg}
+        $\brackets{\frac{(-1)^{n}}{n}}_{n = 1}^{\infty}$, looks like  $-1, \frac{1}{2}, -\frac{1}{3}, \dots$. 
+    \end{eg}
+
+    \begin{definition}[Convergence of a Sequence]
+        A sequence $\brackets{x_{n}}_{n = 1}^{\infty}$ is said to converge to a limit $L$, if $\forall \varep > 0$, there exists $N \in \N$, such that $\forall n > N$,
+        \begin{equation*}
+            \abs{x_{n} - L} < \varep,
+        \end{equation*}
+        and we write this as $\displaystyle\lim_{n \rightarrow \infty}x_{n} = L$.
+    \end{definition}
+
+    What this means, is that if a sequence converges to a value $L$, we can always find some 'stopping point' for the sequence (which is $N$), where we can guarantee that all of the terms in the sequence, $x_{n}$ after this point ($n > N$) is some non-zero distance (\varep) from $L$. If we cannot \textit{always} find a 'stopping point' that shows that $x_{n}$ is getting closer to $L$, then it does not converge to $L$ and we say that $x_{n}$ is divergent.
+
+    \begin{figure}[H]
+        \centering
+        \incfig[0.95]{BoundedSequence} %poor file name is due to bugs if I change the name.
+        \caption{Limit of a sequence}
+    \end{figure}
+    \newpage
+    \begin{prop}
+        \begin{equation*}
+            \lim_{n \rightarrow \infty}\left(\frac{1}{n}\right) = 0
+        \end{equation*}
+    \end{prop}
+    \begin{proof}
+        Set $\varep > 0$. Then if we want to show that $\lim_{n \rightarrow \infty}\left(\frac{1}{n}\right) = 0$, then we want
+        \begin{align*}
+            \abs{x_{n} - L} &< \varep \\
+            \abs{\frac{1}{n}} &= \frac{1}{n} \\
+                              &< \varep
+        \end{align*}
+        Take $N = \left\lceil\frac{1}{\varep}\right\rceil$, then $\forall n > N$, 
+        \begin{align*}
+            \frac{1}{n} \leq \frac{1}{N} &< \varep \\
+                        \frac{1}{\varep} &< N \\
+                                         &= \left\lceil\frac{1}{\varep}\right\rceil
+        \end{align*}
+    \end{proof}
+    \begin{prop}
+        $\set{(-1)^{n}}_{n = 1}^{\infty}$ is divergent. 
+    \end{prop}
+    \begin{proof}
+        Suppose by contradiction that there exists a limit $L$, so that $\lim_{n \rightarrow \infty}(-1)^{n} = L$. Then for all $\varep > 0$ there would exist $N \in |N$ such that $\forall n > N$,
+        \begin{equation*}
+            \abs{(-1)^{n} - L} < \varep.
+        \end{equation*}
+        Choose $\varep = \frac{1}{2}$ and assume that there exists some $N$ such that $\abs{(-1)^{n} - L} < \varep$ holds $\forall n > N$. 
+
+        Consider $n$ is even, then $(-1)^n = 1$, and for $n > N_{1}$
+        \begin{equation}
+            \abs{(-1)^{n} - L} = \abs{1 - L} < \frac{1}{2}. \label{eq:2.4.1}
+        \end{equation}
+
+        Consider $n$ is odd, then $(-1)^{n} = - 1$, and for $n > N_{1}$
+        \begin{equation}
+            \abs{(-1)^{n} - L} = \abs{-1 - L} < \frac{1}{2}. \label{eq:2.4.2}
+        \end{equation}
+
+        Now, note that we can write $2$ as, $2 = \abs{(1 - L) - (-1 - L)}$. Then by the triangle inequality,
+        \begin{align*}
+            2 &= \abs{(1 - L) - (-1 - L)} \\
+              &< \abs{1 - L} + \abs{-1 - L} \\
+        \intertext{take $N = \max(N_{1}, N_{2})$ and $n > N$, then from \eqref{eq:2.4.1} and \eqref{eq:2.4.2},}
+              &< \frac{1}{2} + \frac{1}{2} \\
+            2 &< 1.
+        \end{align*}
+        This is a contradiction, and hence $\set{(-1)^{n}}_{n = 1}^{\infty}$ is divergent. 
+    \end{proof}
+    \subsection{Properties of Sequences}
+    \begin{definition}[Boundedness]
+        A sequence $\brackets{x_{n}}_{n = 1}^{\infty}$ is \textit{bounded}, if there exists $M \in \R$, such that $\forall n \in \N$
+        \begin{equation}
+            \abs{x_{n}} \leq M.
+        \end{equation}
+    \end{definition}
+
+    \begin{prop}[Convergence $\implies$ Boundedness]
+        A convergent sequence is bounded.
+    \end{prop}
+    \begin{proof}
+        Suppose $\lim_{n \rightarrow \infty}x_{n} = L$. 
+
+        Choose $\varep = 1$, then there exists $N \in \N$, such that for $n > N$, $\abs{x_{n} - L} < 1$.
+        Suppose that $n > N$,
+        \begin{align*}
+            \abs{x_{n}} &= \abs{(x_{n} - L) + L}, \\
+                        &\leq \abs{x_{n} - L} + \abs{L}, ~ \text{(by the triangle inequality),} \\
+                        &< 1 + \abs{L}\numberthis \label{eq:convergenceinequality}.
+        \end{align*}
+
+        We know that $\abs{x_{n}} < 1 + \abs{L}$ for any $n > N$, but we don't know about the terms for $1 \leq n \leq N$. So, let
+        \begin{equation*}
+            M = \max\{\underbrace{\abs{x_{1}}, \abs{x_{2}}, \dots, \abs{x_{N}}}_{\text{bound terms $1 \leq n \leq N$}}, \underbrace{1 + \abs{L}}_{\text{from \eqref{eq:convergenceinequality}}}\},
+        \end{equation*}
+        then for all $n \geq 1$,
+        \begin{equation*}
+            \abs{x_{n}} \leq M.
+        \end{equation*}
+    \end{proof}
+    \begin{note}
+        While Convergence does imply Boundedness, Boundedness \textbf{does not} imply Convergence. Consider $\set{(-1)^n}_{n = 1}^{\infty}$, which we showed is divergent in Proposition 4. However, $\abs{(-1)^{n}} \leq 1$.
+    \end{note}
+
+    \begin{prop}
+        A convergent sequence admits a unique limit.
+    \end{prop}
+    \begin{proof}
+        Suppose that $\set{x_{n}}_{n = 1}^{\infty}$ has two seperate limits $L_{1}$ and $L_{2}$. Then for $\varep > 0$, we have that $\displaystyle\lim_{n \rightarrow \infty}x_{n} = L_{1}$, which implies that there exists $N_{1} \in \N$, such that for all $n \geq N_{1}$, 
+        \begin{equation*}
+            \abs{x_{n} - L_{1}} < \frac{\varep}{2}.
+        \end{equation*}
+        Similarly, $\displaystyle\lim_{n \rightarrow \infty}x_{n} = L_{2}$ implies that there exists an $N_{2} \in \N$ such that for all $n \geq N_{2}$, 
+        \begin{equation*}
+            \abs{x_{n} - L_{2}} < \frac{\varep}{2}.
+        \end{equation*}
+
+        Take $N = \max\set{N_{1}, N_{2}}$, then for all $n \geq N$,
+        \begin{align*}
+            \abs{L_{2} - L_{1}} &= \abs{L_{2} - x_{n} + x_{n} - L_{1}} \\
+                                &\leq \abs{x_{n} - L_{1}} + \abs{L_{2} - x_{n}} \\
+                                &= \abs{x_{n} - L_{1}} + \abs{x_{n} - L_{2}} \\
+                                &< \frac{\varep}{2} + \frac{\varep}{2} \\
+            \abs{L_{2} - L_{1}} &< \varep.          
+        \end{align*}
+
+        Remember that if $0 \leq \abs{L_{2} - L_{1}} < \varep$ holds for \textbf{every} $\varep > 0$, then for $\abs{L_{2} - L_{1}} < \varep$ and $0 \leq \abs{L_{2} - L_{1}}$ to hold, $\abs{L_{2} - L_{1}} = 0$, which implies that $L_{1} = L_{2}$. Hence, every convergent sequence has a singular unique limit.
+    \end{proof}
+    \begin{prop}
+        If $\displaystyle\lim_{n \rightarrow \infty}x_{n} = L$ and $\displaystyle\lim_{n \rightarrow \infty}y_{n} = M$, then $\displaystyle\lim_{n \rightarrow \infty}(x_{n} + y_{n}) = L + M$.
+    \end{prop}
+    \begin{proof}
+       Let $\varep > 0$, since $\xn$ converges to $L$, there exists an $N_{1} \in \N$, such that for all $n \geq N$,
+       \begin{equation*}
+            \abs{x_{n} - L} < \frac{\varep}{2}.
+       \end{equation*}
+       
+       Similarly, since $\set{y_{n}}_{n = 1}^{\infty}$ converges to $M$, there exists an $N_{2} \in \N$, such that for all $n \geq N_{2}$, 
+        \begin{equation*}
+            \abs{y_{n} - M} < \frac{\varep}{2}.
+       \end{equation*}
+
+       Take $N = \max\set{N_{1}, N_{2}}$, then for all $n \geq N$, 
+       \begin{align*}
+            \abs{x_{n} + y_{n} - (L + M)} &= \abs{(x_{n} - L) + (y_{n} - M)} \\
+                                          &\leq \abs{x_{n} - L} + \abs{y_{n} - M} \\
+                                          &< \frac{\varep}{2} + \frac{\varep}{2} \\
+                                          &< \varep.
+       \end{align*}
+
+       Hence, $\nlim \brackets{x_{n} + y_{n}} = L + M$.
+    \end{proof}
+
+    \begin{theorem}[The Squeeze Theorem]
+        Let $\set{a_{n}}_{n = 1}^{\infty}$, $\set{b_{n}}_{n = 1}^{\infty}$ and $\set{c_{n}}_{n = 1}^{\infty}$ be sequences such that $\forall n \in \N$,
+        \begin{equation*}
+            a_{n} \leq b_{n} \leq c_{n}.
+        \end{equation*}
+
+        Suppose that $\displaystyle\lim_{n \rightarrow \infty}a_{n} = \displaystyle\lim_{n \rightarrow \infty}c_{n} = L$. Then $\displaystyle\lim_{n \rightarrow \infty}b_{n} = L$.
+    \end{theorem}
+    \begin{proof}
+        Take $\varep > 0$. Then by convergence of $a_{n}$, there exists an $N_{1} \in \N$, such that for all $n \geq N_{1}$, 
+        \begin{equation*}
+            \abs{a_{n} - L} < \varep ~ \Longleftrightarrow ~ L - \varep < a_{n}.
+        \end{equation*}
+        Similarly, by convergence of $c_{n}$ to $L$, there exists an $N_{2} \in \N$ such that for all $n \geq N_{2}$, 
+        \begin{equation*}
+            \abs{c_{n} - L} < \varep ~ \Longleftrightarrow ~ c_{n} < L + \varep. 
+        \end{equation*}
+
+        Take $N = \max\set{N_{1}, N_{2}}$. Then for all $n \geq N$, by boundedness of $b_{n}$ by $a_{n}$ and $c_{n}$,
+        \begin{align*}
+            a_{n} \leq b_{n} \leq c_{n} ~ &\implies ~ L - \varep < a_{n} \leq b_{n} \leq c_{n} < L + \varep \\
+                                          &\implies ~ L - \varep < b_{n} < L + \varep \\
+                                          &\implies ~ \abs{b_n - L} < \varep.
+        \end{align*}
+
+        Hence there exists an $N \in \N$ such that for all $n \geq N$, $\abs{b_{n} - L} < \varep$, and consequently, 
+        \begin{equation*}
+            \nlim b_{n} = L.
+        \end{equation*}
+    \end{proof}
+    \begin{prop}
+        If $\set{x_{n}}_{n = 1}^{\infty}$ converges then $\set{\abs{x_{n}}}_{n = 1}^{\infty}$ converges and 
+        \begin{equation}
+            \lim_{n \rightarrow \infty}\abs{x_{n}} = \abs{\lim_{n \rightarrow \infty}x_{n}}.
+        \end{equation}
+    \end{prop}
+    \begin{proof}
+        Reverse triangle inequality. Will complete later
+    \end{proof}
+
+    \begin{definition}[Monotonicity]
+        A sequence is \textit{monotone increasing} if $\forall n \in N$, $x_{n} \leq x_{n + 1}$. 
+        A sequence is \textit{monotone decreasing} if $\forall n \in \N$, $x_{n + 1} \leq x_{n}$.
+    \end{definition}
+    \begin{theorem}[Monotone Convergence Theorem]
+        A monotone sequence is bounded if and only if it is convergent. 
+        Furthermore, 
+        \begin{itemize}
+            \item If the sequence is monotone increasing, 
+            \begin{equation*}
+                \lim_{n \rightarrow \infty}x_{n} = \sup_{n \in \N}x_{n}
+            \end{equation*},
+            \item or if the sequence is monotone decreasing, 
+            \begin{equation*}
+                \lim_{n \rightarrow \infty}x_{n} = \inf_{n \in \N}x_{n}.
+            \end{equation*}
+        \end{itemize}
+    \end{theorem}
+    \begin{proof}
+        Suppose WLOG that $x_{n}$ is monotone increasing. Assume that it is bounded and set $L = \displaystyle\sup_{n \in \N}x_{n}$.
+
+        For $\varep > 0$, there exists $x_{0} \in \set{x_{n}: n \in \N}$, such that 
+        \begin{equation*}
+            L - x_{0} < \varep.
+        \end{equation*}
+        Hence there exists an $N \in \N$, such that for all $n \geq N$,
+        \begin{equation*}
+            L - \varep < x_{N} \leq x_{N + 1} \leq x_{N + 2} \leq \dots
+        \end{equation*} 
+        So for all $n \geq {N}$, 
+        \begin{align*}
+            L - \varep &< x_{n} \\
+            L - x_{n} &< \varep.
+        \end{align*}
+        By definition $\abs{x_{n}} \leq L$, $\forall n \in \N$, so
+        \begin{equation*}
+            \abs{x_{n} - L} = L - x_{n} < \varep.
+        \end{equation*}
+
+        Hence $\lim_{n \rightarrow \infty}x_{n} = L$. The proof for monotone decreasing sequences is analogous. The reverse direction (convergence implies boundedness) was also proved in Proposition 2.7.
+    \end{proof}
+
+    \subsection{Subsequences}
+
+    \begin{definition}[Subsequences]
+        Let $\set{x_n}_{n = 1}^{\infty}$ be a sequence and $n_{1} < n_{2} < n_{3} < \dots < n_{i} \in \N$. Then the sequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$ is called a subsequence of $x_{n}$.
+    \end{definition}
+
+    \begin{eg}
+        $\set{(-1)^{n}}_{n = 1}^{\infty}$ could have the subsequences, $\set{x_{n_{i}}}_{i = 1}^{\infty}$ for $n_{i} = 2i$, $x_{n_{i}} = 1$, or $\set{x_{n_{i}}}_{i = 1}^{\infty}$ for $n_{i} = 2i - 1$, so $x_{n_{i}} = -1$.
+    \end{eg}
+
+    \begin{prop}[Sequence Subsequence Limit Equivalence]
+        If $\set{x_n}_{n = 1}^{\infty}$ is a convergent sequence then every subsequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$ is also convergent with
+        \begin{equation*}
+            \lim_{n \rightarrow \infty}x_{n} = \lim_{i \rightarrow \infty}x_{n_{i}}.
+        \end{equation*}
+    \end{prop}
+    \begin{proof}
+        By induction, (proof is complicated try it later).
+    \end{proof}
+
+    \begin{lemma}\label{peakslemma}
+        Every sequence $\xn$ has a monotone subsequence. 
+    \end{lemma}
+    
+    \begin{proof}
+        Take $x_{1}, x_{2}, \dots$, call an index $n$ a \textit{peak index} if $x_{n} \geq x_{k}$ $\forall k \geq n$, and we call $x_{n}$ a peak. 
+        Now there are two cases, 
+        \begin{enumerate}
+            \item Either there are \textit{infinitely} many peaks, or
+            \item a \textit{finite} number of peaks. 
+        \end{enumerate}
+
+        \textbf{Case 1 - Infinitely many peaks:}
+        Suppose $n_{1}$ is the first peak index, then $n_{2}$ is the next peak index and so on, so that $n_{1} < n_{2} < \dots$. 
+        
+        Then by definition, $x_{n_{1}} \geq x_{n_{2}} \geq \dots$. Hence we have constructed a monotone decreasing subsequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$ in terms of peaks.
+
+        \textbf{Case 2 - Finitely many peaks:}
+        Let $N$ be the last peak index, so $\forall n > N$, $x_{n}$ is not a peak. 
+        Take $n_{1} = N + 1$, then there exists an $n_{2} > n_{1}$ with $x_{n_{2}} > x_{n_{1}}$. Similarly, there exists an $n_{3} > n_{2}$ with $x_{n_{3}} > x_{n_{2}}$. We can continue this recursive process continuously to construct a monotone increasing subsequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$.
+    \end{proof}
+
+    \begin{theorem}[Bolzano-Weierstrass Theorem]
+        Every bounded sequence $\xn$ has a convergent subsequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$.
+    \end{theorem}
+
+    \begin{proof}
+        Suppose that $\xn$ is a bounded sequence. Then by Lemma \ref{peakslemma}, $\xn$ has a monotone subsequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$. Since $\xn$ is bounded, $\set{x_{n_{i}}}_{i = 1}^{\infty}$ must also be bounded. $\set{x_{n_{i}}}_{i = 1}^{\infty}$ is both bounded and monotone , so by the Monotone Convergence Theorem, $\set{x_{n_{i}}}_{i = 1}^{\infty}$ is convergent. Thus all bounded sequences $\xn$ have a convergent subsequence $\set{x_{n_{i}}}_{i = 1}^{\infty}$.
+    \end{proof}
+
+    \subsection{Cauchy Sequences}
+    \begin{definition}[Cauchy Sequences]
+        A sequence $\xn$ is a Cauchy Sequence (or just called Cauchy), if $\forall \varep > 0$, there exists an $N \in \N$ such that for all $k, l \geq N$,
+        \begin{equation*}
+            \abs{x_{k} - x_{l}} < \varep.
+        \end{equation*} 
+    \end{definition}
+    \textbf{Work on a figure for this one later.}
+\end{document}

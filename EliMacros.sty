@@ -1,0 +1,266 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{EliMacros}
+
+% Required Packages for Macros
+\RequirePackage{amsthm, amssymb, amsmath, graphicx, mathtools, enumerate, xspace, enumitem, cases, suffix, float, systeme, siunitx, xparse}
+\RequirePackage{bm}
+\RequirePackage{esint}
+\RequirePackage[numbered, framed]{matlab-prettifier}
+\RequirePackage[skins, theorems, most]{tcolorbox}
+\RequirePackage{environ}
+\RequirePackage[version = 4]{mhchem}
+\RequirePackage{chemfig}
+\RequirePackage{etoolbox}
+
+% For my Inkscape figures
+\RequirePackage{import}
+\RequirePackage{xifthen}
+\RequirePackage{pdfpages}
+\RequirePackage{transparent}
+\RequirePackage{svg}
+
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{\columnwidth}
+    \scalebox{#1}{\import{./figures/}{#2.pdf_tex}}
+}
+
+\newcommand{\incfigscale}[2][1]{%
+    \def\svgwidth{\columnwidth}
+    \scalebox{#1}{\import[pretex=\LARGE]{./figures/}{#2.pdf_tex}}
+}
+% Ultra Specific Chemistry Macro
+\newcommand{\chem}[1]{\(\ce{#1}\)}
+
+% --------[ MACROS: Personal ]-----------------------------------------------------
+% Declaring a new alphabet for plain text
+
+% Sets and Analysis Stuff
+\newcommand{\varep}{\ensuremath{\varepsilon}\xspace}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}\xspace}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}\xspace}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}\xspace}
+\newcommand{\C}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\F}{\ensuremath{\mathbb{F}}\xspace}
+\newcommand{\R}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{R}}{\mathbb{R}^{#1}}}}
+
+% Linear Algebra
+\DeclareMathOperator{\Det}{det}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\Rank}{rank}
+\DeclareMathOperator{\Trace}{tr}
+\DeclareMathOperator{\RS}{Row}
+\DeclareMathOperator{\CS}{Col}
+\DeclareMathOperator{\NS}{N}
+\newcommand{\unitI}{\ensuremath{\bm\hat{\textbf{\i}}}\xspace}
+\newcommand{\unitJ}{\ensuremath{\bm\hat{\textbf{\j}}}\xspace}
+\newcommand{\unitK}{\ensuremath{\bm\hat{\textbf{k}}}\xspace}
+\newcommand{\bvec}[1]{\ensuremath{\boldsymbol{\mathbf{#1}}}}
+\newcommand{\uvec}[1]{\ensuremath{\boldsymbol{\bm\hat\mathbf{#1}}}}
+
+% Macro for inner Products, \angles{\sqrt{2}, \sqrt{2}} is \langle \sqrt{2}, \sqrt{2} \rangle
+\newcommand{\angles}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+
+% Macro for scaled-delimiting vector norm
+\newcommand{\norm}[1]{\ensuremath{\left\lVert#1\right\rVert}}
+
+% Hyperbolic Trig Functions
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\arcoth}{arcoth}
+\DeclareMathOperator{\arcsch}{arcsch}
+\DeclareMathOperator{\arsech}{arsech}
+
+% Complex Analysis Stuff
+
+\DeclareMathOperator{\Arg}{Arg}
+
+% Declaring Macros for Various things to Scale Correctly. 
+
+
+% Macro for scaled-delimiting brackets
+\newcommand{\brackets}[1]{\left(#1\right)}
+
+% Macro for scaled-delimiting absolute value signs
+\newcommand{\abs}[1]{\ensuremath{\left|#1\right|}}
+
+% Macro for scaled-delimiting ceiling function
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
+
+% Macro for scaled-delimiting floor function
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+
+% Declaring Macros for Sums
+\newcommand{\nsum}[4][n]{\ensuremath{\sum_{#1 = #2}^{#3} #4}}
+
+
+% Declaring Macros for Sequences and Subsequences
+
+% Macro for the sequence \left(a_n\right)_{n \geq 1}^{\infty}. The following command defines \sequence{a}{n} as (a_n), and \sequence{b}{k} as (b_k) etc.
+\newcommand{\sequence}[3]{\ensuremath{\left(#1_{#2}\right)_{#2 \geq #3}}}
+
+% Macro for the subsequence \left(a_{n_k}\right)_{k \geq 1}^{\infty}. Hence \subsequence{a}{n}{k} is (a_n_k) and \subsequence{b}{n}{j} is (b_n_j) etc.
+\newcommand{\subsequence}[3]{\ensuremath{\left(#1_{#2_#3}\right)_{#3 = 1}^{\infty}}}
+
+
+% Calculus Macros
+
+
+% Limits
+
+% Macro for the basic limit, \lim_{x \rightarrow a}\left( P \right). So limit of x+2 at 1 is \limit{x}{1}{x + 2} also is \limit{1}{x + 2}
+\newcommand{\limit}[3][x]{\ensuremath{\displaystyle\lim_{#1 \rightarrow #2} #3}}
+
+% Macro for the limit from the right (positive), \lim_{x \rightarrow a^{+}}\left( P \right). So limit from the right of x+2 at 1 is \rightlim{1}{x + 2}
+\newcommand{\rightlim}[3][x]{\ensuremath{\displaystyle\lim_{#1 \rightarrow #2^{+}} #3}}
+
+% Macro for the limit from the left (negative), \lim_{x \rightarrow a^{-}}\left( P \right). So limit from the left of x+2 at 1 is \rightlim{1}{x + 2}
+\newcommand{\leftlim}[3][x]{\ensuremath{\displaystyle\lim_{#1 \rightarrow #2^{-}} #3}}
+
+% Integrals
+
+% Macro for indefinite integral, with spacing and formatting of the dx term. So the integral of x^2 with respect to x is \indefint{x^2}{x}
+\newcommand{\indefint}[2]{\ensuremath{\int #1 \, \mathrm{d}#2}}
+
+% Macro for the definite integral from a to b, with spacing and formating of the dx etc. So integral of x^2 from 0 to 1 with respect to x is \defint{0}{1}{x^2}{x}
+\newcommand{\defint}[4]{\ensuremath{\int_{#1}^{#2} #3 \, \mathrm{d}#4}}
+
+% Derivatives
+
+% Macro for dy/dx formatted correctly. So dy/dx is simply \diff{y}{x}
+\newcommand{\diff}[2]{\ensuremath{\frac{\mathrm{d}#1}{\mathrm{d}#2}}}
+
+\newcommand{\twodiff}[2]{\ensuremath{\frac{\text{d}^2#1}{\mathrm{d}#2^{2}}}}
+
+% Macro for dy/dx formatted correctly. So dy/dx is simply \diff{y}{x}
+\newcommand{\pdiff}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+
+\newcommand{\twopdiff}[2]{\ensuremath{\frac{\partial^2 #1}{\partial#2^{2}}}}
+
+% If you add a star after \diff, you just get d/dx with \diff*{x}
+% \WithSuffix\newcommand\diff*[2]{\ensuremath{\frac{\mathrm{d}}{\mathrm{d} #1}}}
+\WithSuffix\newcommand\diff*[2][]{\ensuremath{\ifstrempty{#1}{\frac{\mathrm{d}}{\mathrm{d} #2}}{\frac{\mathrm{d}^{#1}}{\mathrm{d}{#2}^{#1}}}}}
+
+% If you add a star after \pdiff, you just get d/dx with \pdiff*{x}
+\WithSuffix\newcommand\pdiff*[1]{\ensuremath{\frac{\partial}{\partial#1}}}
+
+\WithSuffix\newcommand\twopdiff*[1]{\ensuremath{\frac{\partial^{2}}{\partial#1^{2}}}}
+
+% For a simpler approach, \dd for correctly spaced dx and so on, so dx is \dd x
+\newcommand{\dd}{\mathop{}\,\mathrm{d}}
+
+% Macros for Laplace and Inverse Laplace Transform
+\newcommand{\laplace}[1]{\mathcal{L}\left\{#1\right\}(s)}
+
+\newcommand{\invlaplace}[1]{\mathcal{L}^{-1}\left\{#1\right\}(s)}
+
+
+% --------[ Environments: Personal ]-----------------------------------------------------
+
+
+% Theorem environments
+
+
+% Command for a Theorem environment based on Section Numbers \begin{theorem}\end{theorem}
+%\newtheorem{theorem}{Theorem}[subsection]
+
+% Command for a Corollary environment based on Section Numbers \begin{corollary}\end{corollary}
+%\newtheorem{corollary}{Corollary}[theorem]
+
+% Command for a Lemma environment based on Section Numbers \begin{lemma}\end{lemma}
+%\newtheorem{lemma}[theorem]{Lemma}
+
+% Command for a Proposition environment based on Section Numbers \begin{proposition}\end{proposition}
+%\newtheorem{prop}[theorem]{Proposition}
+
+% Command for a Definition environment based on Section Numbers \begin{definition}\end{definition}
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+
+% Boxed Definition and Theorem Environments
+
+\NewEnviron{testtheorem}{%
+  \begin{equation*}%
+      \tcbhighmath{\BODY}
+  \end{equation*}%
+}
+
+%\newtcbtheorem[use counter from=boxdefinition, auto counter, number within=subsection]{boxtheorem}{Theorem}{%
+  %boxrule=1pt,
+  %colframe=darkgray,
+  %colback=white,
+  %box align=top,
+  %enhanced jigsaw,
+  %fonttitle=\bfseries
+%}{th}
+
+%\newtcbtheorem[number within=subsection]{boxdefinition}{Definition}{%
+  %boxrule=1pt,
+  %colframe=darkgray,
+  %colback=white,
+  %box align=top,
+  %enhanced jigsaw,
+  %fonttitle=\bfseries
+%}{th}
+
+%\newtcbtheorem[use counter from=boxedtheorem, auto counter, number within=subsection]{boxcorollary}{Corollary}{%
+  %boxrule=1pt,
+  %colframe=darkgray,
+  %colback=white,
+  %box align=top,
+  %enhanced jigsaw,
+  %fonttitle=\bfseries
+%}{th}
+
+
+
+
+
+% Problem environment for questions in Math assignments, placed in a box for clarity. 
+\NewDocumentEnvironment{problem}{o} % 'o' means optional argument
+{%
+    \begin{tcolorbox}[
+      boxrule=1pt, 
+      colframe=black, 
+      colback=white, 
+      box align=top, 
+      enhanced jigsaw, 
+      sharp corners,
+      grow to left by=\leftmargin,
+      left=\dimeval{\leftmargin-1pt-\fboxsep}
+    ]
+      \IfNoValueTF{#1}{\item}{\item[#1]} % Use default numbering if #1 is missing
+}{%
+    \end{tcolorbox}
+}
+
+
+
+\tcbset{highlight math style={enhanced,
+  colframe=white, colback=blue!10!white, arc=0pt, boxrule=1pt}} % Setting style for highlighting.
+
+\NewEnviron{equationbox}{%
+  \begin{equation*}%
+      \tcbhighmath{\BODY}
+  \end{equation*}%
+}
+\NewEnviron{boxes}{%
+  \tcbhighmath{\BODY}
+}
+
+\newenvironment{soln}{%
+    \par\medskip\noindent\textbf{Solution:}}{\par\medskip
+}
+
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}

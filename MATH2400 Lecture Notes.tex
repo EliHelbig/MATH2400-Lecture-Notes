@@ -152,6 +152,7 @@
 
 % Macros just for this document
 \newcommand{\xn}{\set{x_{n}}_{n = 1}^{\infty}}
+\newcommand{\xseries}{\sum_{n = 1}^{\infty}x_{n}}
 \newcommand{\nlim}{\lim_{n\rightarrow\infty}}
 \newcommand{\Overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\ds}{\displaystyle}
@@ -813,13 +814,268 @@
             \begin{prop}
                 Let $r \in (-1, 1) \subset \R$, then the \emph{geometric series} 
                 \begin{equation*}
-                    \sum_{n = 0}^{\infty}r^{n} ~ \text{converges, and} ~ \sum_{n = 0}^{\infty}r^{n} = \frac{1}{1 - r}.
+                    \sum_{n = 0}^{\infty}ar^{n} ~ \text{converges, and} ~ \sum_{n = 0}^{\infty}ar^{n} = \frac{a}{1 - r}.
                 \end{equation*} 
             \end{prop}
             \begin{note}
-                This also means that the geometric series is a valid \emph{Maclaurin Series} for the function $f(x) = \frac{1}{1 - x}$, for $x \in (-1, 1)$.
+                This also means that the geometric series is a valid \emph{Maclaurin Series} for the function $f(x) = \frac{a}{1 - x}$, for $x \in (-1, 1)$.
             \end{note}
             \begin{proof}
-                Will do this later
+                We will first show that the formula for the partial sums of the geometric series is explicity given as
+                \begin{equation*}
+                    S_{k} = \frac{a\brackets{1 - r^{k + 1}}}{1 - r}.
+                \end{equation*}
+                Suppose $r \in (-1, 1)$. Then
+                \begin{align*}
+                    S_{k} &= a + ar + ar^{2} + \dots + ar^{k}, \\
+                    rS_{k} &= ar + ar^{2} + \dots + ar^{k + 1}.
+                \end{align*}
+                Subtracting $rS_{k}$ from $S_{k}$,
+                \begin{align*}
+                    S_{k} - rS_{k} &= (a + ar + ar^{2} + \dots + ar^{k}) - (ar + ar^{2} + \dots + ar^{k} + ar^{k + 1}) \\
+                    S_{k} - rS_{k} &= a - ar^{k + 1} \\
+                    (1 - r)S_{k} &= a\brackets{1 - r^{k + 1}} \\
+                    S_{k} &= \frac{a\brackets{1 - r^{k + 1}}}{1 - r}.
+                \end{align*}
+                Remember that $L = \sum_{n = 0}^{\infty}x_{n} = \lim_{k \rightarrow \infty}S_{k}$.
+                So, we take the limit of $S_{k}$ as $k \rightarrow \infty$,
+                \begin{align*}
+                   L &= \sum_{n = 0}^{\infty}ar^{n} \\
+                     &= \lim_{k \rightarrow \infty}\frac{a\brackets{1 - r^{k + 1}}}{1 - r} \\
+                     &= \lim_{k \rightarrow \infty}\frac{a}{1 - r} - \lim_{k \rightarrow \infty}\frac{r^{k + 1}}{1 - r} \\
+                     &= \frac{a}{1 - r} - \frac{1}{1 - r}\lim_{k \rightarrow \infty}r^{k + 1}.
+                \end{align*}
+                \begin{note}
+                    To show that $\lim_{k \rightarrow \infty}\frac{r^{k + 1}}{1 - r} = 0$, it requires more sequence proofs than I am unwilling to do. But with sequence techniques it can be shown that for $r \in (-1, 1)$, $\lim_{k \rightarrow \infty}r^{k + 1} = 0$. 
+                \end{note}
+
+                With that,
+                \begin{align*}
+                    L &= \frac{a}{1 - r} - \lim_{k \rightarrow \infty}\frac{r^{k + 1}}{1 - r} \\
+                      &= \frac{a}{1 - r}.
+                \end{align*}
             \end{proof}
+
+            \begin{definition}
+                A series, $\xseries$ is called Cauchy if the sequence of partial sums is a Cauchy Sequence.
+            \end{definition}
+            \begin{remark}
+                Remember when we found earlier that a sequence is Cauchy if and only if it is convergent? Well indeed, for a series is convergent if and only if it's partial sums are Cauchy (and in turn convergent).
+            \end{remark}
+            \begin{prop}[Cauchy Criterion]
+                The series $\xseries$ is convergent if and only if there exists an $N \in \N$, so that $\forall n \geq N$ and $\forall k > n$, 
+                \begin{equation*}
+                    \abs{\sum_{i = n + 1}^{k}x_{i}} < \varep ~ \Longleftrightarrow ~ \abs{S_{k} - S_{n}} = \abs{\sum_{i = 1}^{k}x_{i} - \sum_{i = 1}^{n}x_{i}} < \varep.
+                \end{equation*}
+            \end{prop}
+            \begin{proof}
+                Take $\varep > 0$, and suppose $N \in \N$ exists so that for all $n \geq N$ and $k > n$ (so $k > n \geq N$),
+                \begin{align*}
+                    \abs{\sum_{i = n + 1}^{k}x_{i}} < \varep.
+                \end{align*}
+
+                But, for $k > n$, we know that $k \geq n + 1$, and that $x_{k}$ is further along in the series than $x_{n}$. This is equivalent to noticing
+                \begin{align*}
+                    \sum_{i = 1}^{k}x_{i} = x_{1} + x_{2} + \dots + x_{n} + \dots + x_{k}. 
+                \end{align*}
+                This implies,
+                \begin{align*}
+                    \sum_{i = 1}^{k}x_{i} - \sum_{i = 1}^{n}x_{i} &= \brackets{x_{1} + x_{2} + \dots + x_{n} + \dots + x_{k}} - \brackets{x_{1} + x_{2} + \dots + x_{n}} \\
+                                                                  &= x_{n + 1} + \dots + x_{k} \\
+                                                                  &= \sum_{i = n + 1}^{k}x_{i}.
+                \end{align*}
+
+                But remember by the definition of partial sums, $\sum_{i = 1}^{k}x_{i} = S_{k}$ and $\sum_{i = 1}^{n}x_{i} = S_{n}$. Then,
+                \begin{alignat*}{3}
+                    &\abs{\sum_{i = n + 1}^{k}x_{i}} ~ &< ~ \varep 
+                    &\quad &\implies \abs{\sum_{i = 1}^{k}x_{i} - \sum_{i = 1}^{n}x_{i}} &< \varep \\
+                    & & & &\abs{S_{k} - S_{n}} &< \varep \\
+                    & & & &\implies S_{k} ~ \text{is Cauchy.} &     
+                 \end{alignat*}
+            \end{proof}
+
+            \begin{prop}[Divergence Criterion]
+                $\xseries$ converges $\implies$ $\nlim x_{n} = 0$.
+
+                Alternitavely, the contrapositive (which is a lot more useful), states:
+
+                If $\nlim x_{n} \neq 0$ or is undefined, then $\xseries$ diverges.
+            \end{prop}
+            \textbf{Include a figure for this}
+            \newpage
+            \begin{note}
+                Be very careful with this. The original statement: $\xseries$ convergence implies $\nlim x_{n} = 0$, can only be used if you \textbf{\emph{know}} that $\xseries$ converges. 
+                Similarly, you can't take the converse either: $\nlim x_{n} = 0$ \textbf{\emph{ does not}} imply that $\xseries$ converges. You can only use it to prove that a series diverges if there is a non-zero or non-existent limit.
+            \end{note}
+            \begin{eg}[The Harmonic Series]
+                Consider $\sum_{n = 1}^{\infty}\frac{1}{n}$.
+
+                We can see that $\nlim \frac{1}{n} = 0$. However the Harmonic Series, is pretty much the standard example of a divergent series. We will be able to prove this later with the integral test. I will show an example here:
+                Firstly, $\sum_{n = 1}^{\infty}x_{n}$ converges if and only if 
+                \[
+                    \lim_{k\rightarrow\infty}\int_{1}^{k}x_{n}\dd{n} < \infty
+                \]
+
+                For the harmonic series, $x_{n} = \frac{1}{n}$, so
+                \begin{align*}
+                    \lim_{k \rightarrow \infty}\int_{1}^{k}x_{n}\!\dd{n} &= \lim_{k \rightarrow \infty}\int_{1}^{\infty}\frac{1}{n}\dd{n} \\
+                                                                            &= \lim_{k \rightarrow \infty}\ln{k} - \ln(1) \\
+                                                                            &= \ln\brackets{{\lim_{k \rightarrow \infty}}k} \rightarrow \infty.
+                \end{align*}
+                So by the integral test, the Harmonic Series, $\sum_{n = 1}^{\infty}\frac{1}{n}$ does not converge. We shall prove that the integral test holds more formally later.
+
+                Let this be a cautionary tale, $\nlim x_{n} = 0$ \textbf{\emph{does not}} imply that $\xseries$ converges, but we can use $\nlim x_{n} \neq 0$ or undefined to check if $\xseries$ will diverge instead.
+            \end{eg}
+            Now we shall prove Proposition 13:
+            \begin{proof}
+                Take $\varep > 0$. Then suppose that $\xseries$ converges. By the Cauchy criterion, this implies that it is Cauchy. Hence, there exists an $N \in \N$, so that $\forall n \geq N$, 
+                \begin{align*}
+                    \abs{x_{n + 1} - 0} = \abs{x_{n + 1}} &= \abs{\sum_{i = n + 1}^{n + 1}x_{i}} < \varep.
+                \end{align*}
+                So for $n \geq N + 1$, 
+                \begin{equation*}
+                    \abs{x_{n} - 0} < \varep ~ \Longleftrightarrow ~ \nlim x_{n} = 0
+                \end{equation*}
+            \end{proof}
+
+        \newpage
+        \subsection{Absolute Convergence}
+            \begin{prop}
+                If $x_n \geq 0$, $\forall n \in \N$, then $\xseries$ converges if and only if the sequence of partial sums is bounded above $\brackets{\text{i.e.}, \exists M ~ \text{such that} ~ \forall k \in \N, ~ \abs{S_{k}} \leq M}$
+            \end{prop}
+            \begin{remark}
+                If $x_n \geq 0$, then this implies that $S_{k}$ is monotone increasing. If $x_{n} \geq 0$, then $x_{1} \leq x_{1} + x_{2}$, and so on, so
+                \begin{equation*}
+                    S_{k} = \sum_{n = 1}^{k}x_{n} \leq \xseries.
+                \end{equation*}
+
+                If $\xseries$ doesn't converge, then $S_{k} < \infty$, and is unbounded above. If $S_{k}$ is bounded above and is monotone increasing because $x_{k} \geq 0$, then by the monotone convergence theorem, $S_{k}$ converges and so does $\xseries$. 
+            \end{remark}
+            \begin{definition}[Absolute Convergence]
+                A series is said to be \emph{absolutely convergent} if the series $\sum_{n = 1}^{\infty}\abs{x_{n}}$ converges. 
+            \end{definition}
+            \begin{definition}[Conditional Convergence]
+               A series is said to be \emph{conditionally convergent} if $\xseries$ is convergent but $\sum_{n = 1}^{\infty}\abs{x_{n}}$ does not converge.
+            \end{definition}
+
+            \begin{prop}
+                If a series $\xseries$ converges absolutely, then $\xseries$ also converges. 
+            \end{prop}
+            \begin{proof}
+                $\sum_{n = 1}^{\infty}\abs{x_{n}}$ is Cauchy since it converges. So, take $\varep > 0$, and there exists an $N \in \N$ such that $\forall k \geq N$, and $\forall n > k$, 
+                \begin{equation*}
+                    \abs{\sum_{i = k + 1}^{n}\abs{x_{i}}} < \varep.
+                \end{equation*}
+                Then, 
+                \begin{equation*}
+                    \underbrace{\abs{\sum_{i = k + 1}^{n}x_{i}} \leq \sum_{i = k + 1}^{n}\abs{x_{i}}}_{\text{(by generalised $\Delta$-Ineq)}} = \abs{\sum_{i = k + 1}^{n}\abs{x_{i}}}
+                \end{equation*}
+                Consequently, this implies that 
+                \begin{equation*}
+                    \abs{\sum_{i = k + 1}^{n}x_{i}} < \varep
+                \end{equation*}
+                Hence, $\xseries$ converges.
+            \end{proof}
+            \begin{eg}
+                The Alternating Harmonic Series: $\sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n} = -\ln(2)$ and is convergent. 
+                However, as covered earlier, $\sum_{n = 1}^{\infty}\abs{\frac{(-1)^{n}}{n}}$ is the Harmonic Series which is divergent. Hence $\sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n}$ is conditionally convergent.
+
+                \begin{note}
+                    $\sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n} = -\ln(2)$ can be confirmed through the Maclaurin series for $\ln(x + 1)$, 
+                    \begin{equation*}
+                        \ln(x + 1) = \sum_{n = 1}^{\infty}\frac{(-1)^{n + 1}}{n}x^{n}.
+                    \end{equation*}
+                \end{note}
+            \end{eg}
+
+        \subsection{Series Convergence Tests}
+            \begin{prop}[Series Comparison Test]
+                Let $\xseries$ and $\sum_{n = 1}^{\infty}y_{n}$ be series such that $\forall n \in \N$ $0 \leq x_{n} \leq y_{n}$.
+                Then,
+                \begin{enumerate}
+                    \item If $\sum_{n = 1}^{\infty}y_{n}$ converges, then $\xseries$ converges, and
+                    \item if $\xseries$ diverges, then $\sum_{n = 1}^{\infty}y_{n}$ diverges.
+                \end{enumerate}
+            \end{prop}
+            \begin{proof}
+                First proving 1:
+                Suppose that $\sum_{n = 1}^{\infty}y_{n}$ converges. Let the partial sums of $\sum_{n = 1}^{\infty}y_{n}$ be given by $Y_{k}$ and the partial sums of $\xseries$ be given by $S_{k}$. Suppose that $\forall n \in \N$, $0 \leq x_{n} \leq y_{n}$. Then,
+                \begin{align*}
+                    Y_{k} \leq Y_{k} + y_{k + 1} = Y_{k + 1} ~ \implies ~ Y_{k} \leq Y_{k + 1}.
+                \end{align*}
+                Similarly,
+                \begin{align*}
+                    S_{k} \leq S_{k} + x_{k + 1} = S_{k + 1} ~ \implies ~ S_{k} \leq S_{k + 1}.
+                \end{align*}
+                Hence the sequences of partial sums for $\sum_{n = 1}^{\infty}y_{n}$ and $\xseries$ are monotone increasing. Also, because $x_{n} \leq y_{n}$, then $S_{k} \leq Y_{k}$.
+
+                Since $\sum_{n = 1}^{\infty}y_{n}$ converges, $Y_{k} \leq \sum_{n = 1}^{\infty}y_{n}$ ($Y_{k}$ is bounded). So,
+                \begin{align*}
+                    S_{k} \leq Y_{k} \leq \sum_{n = 1}^{\infty}y_{n} ~ \implies ~ S_{k} \leq \sum_{n = 1}^{\infty}y_{n}.
+                \end{align*}
+
+                Since $S_{k}$ is bounded above and $x_{n} \geq 0$ $\forall n \in \N$, then $\xseries$ must converge by Proposition 14.
+            \end{proof}
+            \begin{prop}[$p$-series test]
+                For $p \in \R$, the series
+                \begin{equation*}
+                    \sum_{n = 1}^{\infty}\frac{1}{n^{p}}
+                \end{equation*}
+                converges if and only if $p > 1$.
+            \end{prop}
+            \begin{remark}
+                The $p$-series test is just a specific case of the series comparison test using the Harmonic series ($p = 1$).
+            \end{remark}
+
+            \newpage
+            
+            \begin{eg}
+                For $p = 0$, we have $\sum_{n = 1}^{\infty}1 \rightarrow \infty$.
+
+                For $p = 1$, we have $\sum_{n = 1}^{\infty}\frac{1}{n} \rightarrow \infty$ (Harmonic Series).
+
+                For $p \in (0, 1]$, 
+                \begin{equation*}
+                    0 \leq \frac{1}{n} \leq \frac{1}{n^{p}},
+                \end{equation*}
+                so the series comparison test dictates that $\sum_{n = 1}^{\infty}\frac{1}{n^{p}}$ diverges.
+
+                For $p = 2$, we have $\sum_{n = 1}^{\infty}\frac{1}{n^{2}} = \frac{\pi^{2}}{6}$ (can be confirmed with Fourier Series). 
+            \end{eg}
+
+            \begin{prop}[Ratio Test]
+                Let $\xseries$ be a series with $x_{n} \neq 0$, $\forall n \in \N$. Let
+                \begin{equation*}
+                    L = \lim_{n \rightarrow \infty}\abs{\frac{x_{n + 1}}{x_{n}}}.
+                \end{equation*}
+
+                Then, if $L < 1$, $\xseries$ converges absolutely. 
+
+                If $L > 1$ or $L$ doesn't exist, then $\xseries$ is divergent.
+            \end{prop}
+            \begin{remark}
+                If $L = 1$, the test is inconclusive and you should look for a different test.
+            \end{remark}
+            \begin{prop}[Root Test]
+                Let $\xseries$ be a series. Define,
+                \begin{equation*}
+                    L = \limsup_{n \rightarrow \infty}\abs{x_{n}}^{\frac{1}{n}}.
+                \end{equation*}
+                Then, if $L < 1$, $\xseries$ converges absolutely.
+
+                If $L > 1$ or $L$ doesn't exist, then $\xseries$ is divergent
+            \end{prop}
+            \begin{remark}
+                Similarly to the ratio test, if $L = 1$, the test is inconclusive and you should look for a different test.
+            \end{remark}
+            \begin{prop}[Alternating Series Test]
+                Let $\xn$ be monotone-decreasing, with $x_{n} > 0$ and $\nlim x_{n} = 0$. 
+                Then $\sum_{n = 1}^{\infty}(-1)^{n}x_{n}$ converges.
+            \end{prop}
+
+            \begin{note}
+                I'm not going to write about rearrangements here.
+                
+                I think it's important to understand however that if you rearrange an absolutely convergent series then it won't change the convergence or limit of the series. However the same cannot always be said for series which are conditionally convergent. The alternating harmonic series being a classic example, which can be rearranged to produce any limit.
+            \end{note}
 \end{document}

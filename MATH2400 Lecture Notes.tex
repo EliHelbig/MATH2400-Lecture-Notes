@@ -154,6 +154,7 @@
 \newcommand{\xn}{\set{x_{n}}_{n = 1}^{\infty}}
 \newcommand{\nlim}{\lim_{n\rightarrow\infty}}
 \newcommand{\Overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\ds}{\displaystyle}
 
 \begin{document}
 
@@ -768,5 +769,57 @@
         Thus, all convergent sequences are Cauchy sequences, and all Cauchy sequences are convergent.
     \end{proof}
     \section{Series}
-    This section will be worked on once I finish the Series lectures. 
+        \subsection{Basic Definitions}
+            \begin{definition}[Series]
+                Consider an infinite, ordered sequence $\xn = (x_{1}, x_{2}, \dots)$, which can consist of numbers, functions, matrices, vectors and so on. Then we call the sum of all these objects, a \textit{series}, written as: 
+                \begin{equation*}
+                    \sum_{n = 1}^{\infty}x_{n} ~ \Longleftrightarrow ~ x_{1} + x_{2} + \dots
+                \end{equation*}
+            \end{definition}
+            \newpage
+            \begin{definition}[Partial Sums]
+                The \textit{partial sum} of a series, is the sum of the first $k$-number of terms of the series, written as:
+                \begin{equation*}
+                    S_{k} = \sum_{n = 1}^{k}x_{n} ~ \Longleftrightarrow ~ S_{k} = x_{1} + x_{2} + \dots + x_{k}.
+                \end{equation*}
+            \end{definition}
+            \begin{note}
+                Sometimes partial sums are also written in the form, $S_{k} = \ds\sum_{1 \leq n \leq k}x_{n}$.
+            \end{note}
+            \begin{remark}
+                Since $S_{k} = \sum_{n = 1}^{k}x_{n}$, we can write
+                \begin{equation*}
+                    x_{k} = S_{k} - S_{k - 1} = \brackets{x_{1} + x_{2} + \dots + x_{k - 1} + x_{k}} - \brackets{x_{1} + x_{2} + \dots + x_{k - 1}}.
+                \end{equation*}
+                This fact is often very useful for proofs.
+            \end{remark}
+            \begin{definition}[Convergence of a Series]
+                Suppose that have the series $\sum_{n = 1}^{\infty}x_{n}$, with partial sums, $S_{k} = \sum_{n = 1}^{k}x_{n}$. Consider the sequence of partial sums, 
+                \begin{equation*}
+                    \set{S_{k}}_{k = 1}^{\infty} = (x_{1}, ~x_{1} + x_{2}, ~x_{1} + x_{2} + x_{3}, \dots)
+                \end{equation*}
+
+                A series is said to be \emph{convergent}, if $\set{S_{k}}_{k = 1}^{\infty}$ converges; in which case,
+                \begin{equation*}
+                    \sum_{n = 1}^{\infty}x_{n} = \lim_{k \rightarrow \infty}S_{k} ~ \Longleftrightarrow ~ \lim_{k \rightarrow \infty}\sum_{n = 1}^{k}x_{n}.
+                \end{equation*}
+            \end{definition}
+            \begin{note}
+                Similarly, if $\set{S_{k}}_{k = 1}^{\infty}$ diverges, then $\sum_{n = 1}^{\infty}x_{n}$ also diverges.
+            \end{note}
+            \begin{remark}
+                We will get to an alternative, and more refined definition of convergence of series in terms of the \emph{Cauchy Criterion} later on.
+            \end{remark}
+            \begin{prop}
+                Let $r \in (-1, 1) \subset \R$, then the \emph{geometric series} 
+                \begin{equation*}
+                    \sum_{n = 0}^{\infty}r^{n} ~ \text{converges, and} ~ \sum_{n = 0}^{\infty}r^{n} = \frac{1}{1 - r}.
+                \end{equation*} 
+            \end{prop}
+            \begin{note}
+                This also means that the geometric series is a valid \emph{Maclaurin Series} for the function $f(x) = \frac{1}{1 - x}$, for $x \in (-1, 1)$.
+            \end{note}
+            \begin{proof}
+                Will do this later
+            \end{proof}
 \end{document}

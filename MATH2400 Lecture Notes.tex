@@ -156,6 +156,7 @@
 \newcommand{\nlim}{\lim_{n\rightarrow\infty}}
 \newcommand{\Overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\ds}{\displaystyle}
+\newcommand{\xlim}{\lim_{x \rightarrow c}}
 
 \begin{document}
 
@@ -769,6 +770,29 @@
 
         Thus, all convergent sequences are Cauchy sequences, and all Cauchy sequences are convergent.
     \end{proof}
+
+    \subsection{Upper and Lower Limits}
+    \begin{definition}
+        Let $\xn$ be a bounded sequence. Define $a_{n} = \sup\set{x_{k}: k \geq n}$, and $b_{n} = \inf\set{x_{k}: k \geq n}$. Suppose the limits exist, we define 
+        \begin{align*}
+            \limsup_{n \rightarrow \infty}x_{n} &= \lim_{n \rightarrow \infty}a_{n}, & \liminf_{n \rightarrow \infty}x_{n} &= \lim_{n \rightarrow \infty}b_{n}.
+        \end{align*}
+    \end{definition}
+    \textbf{Add figure here}
+    \begin{prop}
+        Let $\xn$ be bounded, then $\limsup_{n \rightarrow \infty}x_{n}$ and $\liminf_{n \rightarrow \infty}x_{n}$ exist. 
+    \end{prop}
+    \begin{proof}
+        The proof for $\limsup$:
+        \begin{align*}
+            a_{n + 1} = \sup\set{x_{k}: k \geq n + 1} \leq \sup\set{x_{k}: k \geq n} = a_{n},
+        \end{align*}
+        that is, $\set{x_{k}: k \geq n + 1} \subseteq \set{x_{k}: k \geq n}$.
+
+        Since $a_{n + 1} \leq a_{n}$, $a_{n}$ is monotone decreasing and bounded. 
+        
+        So, by the monotone convergence theorem, $\lim_{n \rightarrow \infty}a_{n} = \limsup_{n \rightarrow \infty}x_{n}$ exists. The proof is analogous for $\liminf x_{n}$.
+    \end{proof}
     \section{Series}
         \subsection{Basic Definitions}
             \begin{definition}[Series]
@@ -777,7 +801,6 @@
                     \sum_{n = 1}^{\infty}x_{n} ~ \Longleftrightarrow ~ x_{1} + x_{2} + \dots
                 \end{equation*}
             \end{definition}
-            \newpage
             \begin{definition}[Partial Sums]
                 The \textit{partial sum} of a series, is the sum of the first $k$-number of terms of the series, written as:
                 \begin{equation*}
@@ -902,7 +925,6 @@
                 If $\nlim x_{n} \neq 0$ or is undefined, then $\xseries$ diverges.
             \end{prop}
             \textbf{Include a figure for this}
-            \newpage
             \begin{note}
                 Be very careful with this. The original statement: $\xseries$ convergence implies $\nlim x_{n} = 0$, can only be used if you \textbf{\emph{know}} that $\xseries$ converges. 
                 Similarly, you can't take the converse either: $\nlim x_{n} = 0$ \textbf{\emph{ does not}} imply that $\xseries$ converges. You can only use it to prove that a series diverges if there is a non-zero or non-existent limit.
@@ -938,7 +960,6 @@
                 \end{equation*}
             \end{proof}
 
-        \newpage
         \subsection{Absolute Convergence}
             \begin{prop}
                 If $x_n \geq 0$, $\forall n \in \N$, then $\xseries$ converges if and only if the sequence of partial sums is bounded above $\brackets{\text{i.e.}, \exists M ~ \text{such that} ~ \forall k \in \N, ~ \abs{S_{k}} \leq M}$
@@ -1026,8 +1047,6 @@
             \begin{remark}
                 The $p$-series test is just a specific case of the series comparison test using the Harmonic series ($p = 1$).
             \end{remark}
-
-            \newpage
             
             \begin{eg}
                 For $p = 0$, we have $\sum_{n = 1}^{\infty}1 \rightarrow \infty$.
@@ -1078,4 +1097,298 @@
                 
                 I think it's important to understand however that if you rearrange an absolutely convergent series then it won't change the convergence or limit of the series. However the same cannot always be said for series which are conditionally convergent. The alternating harmonic series being a classic example, which can be rearranged to produce any limit.
             \end{note}
+
+    \section{Functions}
+        \subsection{Preliminary Definitions}
+            \begin{definition}
+                A function, $f$, is defined as the \emph{mapping} of the elements one subset onto another subset, denoted $f: X \rightarrow Y$, where $X \subseteq Y$.
+            \end{definition}
+            \begin{remark}
+                Typically, we work with real-valued functions, where $X \subseteq \R$ and $Y \subseteq \R$. For most functions we work with, we will have $f: X \rightarrow \R$.
+            \end{remark}
+
+        \subsection{Limits with Functions}
+            \begin{definition}[The $\varep$--$\delta$ limit]
+                Let $c \in \R$, and $f$ be defined as $f: \R \setminus \set{c} \rightarrow \R$. We say that $\displaystyle\lim_{x \rightarrow c}f(x) = L$ if, $\forall \varep > 0$, there exists a $\delta > 0$, such that 
+                \begin{equation*}
+                    0 < \abs{x - c} < \delta \quad \implies \quad \abs{f(x) - L} < \varep.
+                \end{equation*}
+            \end{definition}
+            \begin{remark}
+                Basically what this means, is that we should be able to find some distance around $x = c$, ($\delta$), such that we can guarantee the values of the function in this region, are of a certain distance ($\varep$) away from the limit $L$. 
+
+                If we are \emph{always} able to find a region where the function is a certain distance away from the limit, no matter the distance, then as the distance between the function and the limit gets smaller, so too should the distance between $x$-values around $c$. 
+            \end{remark}
+            \textbf{This definitely needs a figure}
+            \begin{eg}
+                Consider $\lim_{x \rightarrow 3}\frac{x - 1}{2} = 1$.
+
+                \textbf{Proof}: Let $\varep > 0$, and set $\delta = \varep$. Then, suppose that $\forall x$, $0 < \abs{x - 3} < \delta$, so
+                \begin{align*}
+                    \abs{\frac{x - 1}{2} - 1} = \frac{\abs{x - 3}}{2} < \frac{\varep}{2} < \varep.
+                \end{align*}
+            \end{eg}
+            \begin{remark}
+                The way we worked out to set $\delta = \varep$ is through some working out. Our goal is to always get $\abs{f(x) - L}$ to be some expression in terms of $\abs{x - c}$, so that we can pick some $\delta$ in terms of $\varep$, that will end up smaller than $\varep$. In this case we had $\abs{f(x) - L} = \frac{1}{2}\abs{x - 3}$. We should notice that this is related to our predicate, $0 < \abs{x - 3} < \delta$. We can then see that this means, $\frac{1}{2}\abs{x - 3} < \frac{\delta}{2}$. So if we want $\frac{\delta}{2} < \varep$, picking $\delta = \varep$ would work well.
+            \end{remark}
+            \begin{eg}
+                Show that for $m, ~b \in \R$, $\lim_{x \rightarrow c} mx + b = mc + b$.
+
+                Our predicate is $0 < \abs{x - c} < \delta$. We now want to rearrange $\abs{(mx + b) - (mc + b)}$ to be in terms of $\abs{x - c}$. So,
+                \begin{align*}
+                    \abs{(mx + b) - (mc + b)} &= \abs{m(x - c)} \\
+                                              &= \abs{m}\abs{x - c}.
+                \end{align*}
+
+                From our predicate, we have $\abs{x - c} < \delta$, so, we want to show that 
+                \begin{equation*}
+                    \abs{m}\abs{x - c} < \abs{m}\delta \leq \varep.
+                \end{equation*}
+
+                Take $\delta = \frac{\varep}{\abs{m} + 1}$, (we have $\abs{m} + 1$ in the denominator so that for $\abs{m} = 0$, $\delta$ is still defined).
+
+                Then, 
+                \begin{align*}
+                    \abs{(mx + b) - (mc + b)} &= \abs{m}\abs{x - c} \\
+                                              &< \abs{m} \frac{\varep}{\abs{m} + 1} \\
+                                              &< \abs{m}\frac{\varep}{\abs{m}} \\
+                                              &< \varep.
+                \end{align*}
+            \end{eg}
+            \begin{eg}
+                Show that $\lim_{x \rightarrow 4}x^{2} = 16$.
+
+                Remember, that we want $\abs{f(x) - L}$ in terms of $\abs{x - c}$; for this question, we should then notice that we can factorise $\abs{f(x) - L} = \abs{x^{2} - 16}$,
+                \begin{equation*}
+                    \abs{x^{2} - 16} = \abs{(x + 4)(x - 4)} = \abs{x + 4}\abs{x - 4}.
+                \end{equation*}
+
+                Now if we want to find a $\delta$ that works here, we can't just pick $\delta = \frac{\varep}{\abs{x + 4} + 1}$. Remember, $0 < \abs{x - 4} < \delta$, must be true for all $x$, meaning we need to pick a $\delta$ that is \emph{independent of $x$}. This means that we need some way to establish an upper bound on $\abs{x + 4}$.
+
+                The best way to do this is to suppose that we briefly assume that $\delta = 1$, since we are working around $x \rightarrow 4$, we can safely assume that we're working in the interval $3 < x < 5$, so that $\abs{x - 4} < 1$. 
+
+                Well, if $0 < \abs{x - 4} < 1$, then
+                \begin{align*}
+                    0 < \abs{x - 4} < 1 &\implies x < 5 \\
+                                        &\implies x + 4 < 9.
+                \end{align*}
+                Okay, so now we can write that 
+                \begin{equation*}
+                    \abs{x^{2} - 16} = \abs{x + 4}\abs{x - 4} < \abs{9}\abs{x - 4} = 9\abs{x - 4}.
+                \end{equation*}
+
+                Then for $0 < \abs{x - 4} < \delta$, and $9\abs{x - 4} < \varep$, we can see that we should have $\delta = \frac{\varep}{9}$. Since our earlier upper bound on $\abs{x + 4}$ was derived for $\delta = 1$, and $\delta = \frac{\varep}{9} > 1$ for $\varep > 9$ (which is possible), we need to take the minimum of these two deltas to guarantee our inequality always works. 
+
+                Hence our final choice is $\delta = \min\brackets{1, \frac{\varep}{9}}$.
+            \end{eg}
+            \begin{note}
+                In the lectures a different approach (and perhaps more rigorous one) was used with the reverse triangle inequality, so that 
+                \begin{equation*}
+                    \abs{x} - 4 \leq \abs{\abs{x} - 4} \leq \abs{x - 4} < 1
+                \end{equation*}
+
+                This approach is a lot more helpful for $x \rightarrow c$, when $c < 0$, as it deals with the possibility of $x < 0$ which my method above doesn't.
+            \end{note}
+            \begin{remark}
+                The general strategy for limits of quadratics (and higher polynomials too), is to factorise $\abs{f(x) - L}$ into some expression $\abs{g(x)}\abs{x - c}$, where $g(x)$ is some other polynomial. 
+                
+                The goal is to then find an upper bound on $\abs{g(x)}$ by making an assumption such as $\delta = 1$ or something similar, and then proceeding with the working out to find the other delta. 
+                
+                Your final delta will be the minimum of the two found earlier,minimum, $\delta = \min(1, \delta(\varep))$ (where $\delta(\varep)$ is the $\delta$ you find after applying the upper bound on $\abs{g(x)}$.)
+            \end{remark}
+
+            \begin{prop}
+                If a function attains a limit at a point, then it is unique.
+            \end{prop}
+            \begin{proof}
+                By contradiction, suppose that there exists two limits $L_{1}$ and $L_{2}$, such that $\lim_{x \rightarrow c}f(x) = L_{1}$ and $\lim_{x \rightarrow c}f(x) = L_{2}$. Using a similar techinque as the one used to prove that the limit of a sequence is unique, you can suppose that $0 < \abs{x - c} < \delta_{1}$ implies $\abs{f(x) - L_{1}} < \frac{\varep}{2}$, and $0 < \abs{x - c} < \delta_{2}$ implies $\abs{f(x) - L_{2}} < \frac{\varep}{2}$. Take $\delta = \min(\delta_{1}, \delta_{2})$ and write $\abs{L_{2} - L_{1}} = \abs{L_{2} - f(x) + f(x) - L_{1}}$, from there the triangle inequality can be used to get $\abs{L_{2} - L_{1}} < \frac{\varep}{2} + \frac{\varep}{2} = \varep$, which in turn implies that $L_{2} = L_{1}$, completing the proof. (\textbf{I'll expand on this later})
+            \end{proof}
+
+            \begin{definition}[Sequential Limits]
+                We say that $\ds\lim_{x \rightarrow c}f(x) = L$, if for all sequences $\xn$ converging to $c$, then $\ds\lim_{n \rightarrow \infty}f(x_{n}) = L$.
+            \end{definition}
+            \begin{prop}
+                The sequential limit and $\varep$--$\delta$ limit definitions are equivalent.
+            \end{prop}
+            \begin{proof}
+                This proof will be completed by showing that $\varep$--$\delta$ $\implies $ Sequential Limit, and that $\neg  ~\varep$--$\delta$ $\implies$ $\neg$ Sequential Limit.
+
+                \textbf{Part 1:} $\varep$--$\delta$ limit implies the sequential limit.
+
+                Suppose that $\forall \varep > 0$, $\exists \delta > 0$, such that $\forall x$, $0 < \abs{x - c} < \delta$ implies that $\abs{f(x) - L} < \varep$.
+
+                Let $\xn$ be a sequence such that $x_{n} \neq c$, and $\forall \varep^{\ast} > 0$, $\exists N \in \N$, such that $\forall n \geq N$, $\abs{x_{n} - c} < \varep^{\ast}$.
+
+                Take $\varep > 0$, and $\varep^{\ast} = \delta$. Then there exists an $N \in \N$, such that $\forall n \geq N$, 
+                \begin{align*}
+                    0 < \abs{x_{n} - c} < \varep^{\ast} ~ \Longleftrightarrow ~ \abs{x_{n} - c} < \delta,
+                \end{align*}
+                then by assumption,
+                \begin{equation*}
+                    \abs{f\left(x_{n}\right) - L} < \varep.
+                \end{equation*}
+                
+                \textbf{Part 2:} The negation of $\varep$--$\delta$ implies the negation of the sequential limit.
+
+                Assume that $\exists \varep > 0$, such that $\forall \delta > 0$, $\exists x$ such that $0 < \abs{x - c} < \delta$ implies $\abs{f(x) - L} \geq \varep$.
+
+                Consider the sequence $\set{\delta_{n}}_{n = 1}^{\infty} = \frac{1}{n}$. Now constructing $\xn$ using $\delta_{n}$, suppose that $\exists \varep > 0$ such that $\forall n$, $\exists \xn \neq c$ with $0 < \abs{x_{n} - c} < \delta_{n}$, and $\abs{f(x_{n}) - L} \geq \varep$.
+
+                Consider an arbitrary sequence $\xn$ that fits these assumptions, so that we have $\forall n$ $0 < \abs{x_{n} - c} < \delta_{n} = \frac{1}{n}$. Then
+                \begin{equation*}
+                    0 < \abs{x_{n} - c} < \frac{1}{n} ~ \implies ~ c - \frac{1}{n} < x_{n} < c + \frac{1}{n}.
+                \end{equation*}
+
+                This implies that $\lim_{n \rightarrow \infty}x_{n} = c$, but by our earlier assumption of the negation of $\varep$--$\delta$, $\abs{f(x_{n}) - L} \geq \varep$. So by our construction of $\xn$, we have found a sequence which satisfies the negation of the sequantial limit, and so the negation of $\varep$--$\delta$ implies the negation of the sequential limit.
+            \end{proof}
+            \begin{eg}
+                $\ds\lim_{x \rightarrow 0}\sin\brackets{\frac{1}{x}}$ does not exist.
+
+                Consider the sequence $x_{n} = \frac{2}{(2n + 1)\pi}$, noting that $\nlim x_{n} = 0$, but $\forall n$, $x_{n} \neq 0$. 
+                
+                Then $\sin\brackets{\frac{1}{x_{n}}} = (-1)^{n}$. In this case $\limsup_{n \rightarrow \infty}\sin\brackets{\frac{1}{x_{n}}} = 1$, while we also have $\liminf_{n \rightarrow \infty}\sin\brackets{\frac{1}{x_{n}}} = -1$. These limits aren't equal, and so $\sin\brackets{\frac{1}{x}}$ diverges for $x \rightarrow 0$.
+            \end{eg}
+            \begin{eg}
+                $\ds\lim_{x \rightarrow 0}x\sin\brackets{\frac{1}{x}} = 0$.
+
+                Let $\xn$ be a sequence such that $\forall n$, $x_{n} \neq 0$ and $\nlim x_{n} = 0$.
+
+                Then
+                \begin{equation*}
+                    \abs{x_{n}\sin\brackets{\frac{1}{x_{n}}} - 0} = \abs{x_{n}}\abs{\sin\brackets{\frac{1}{x_{n}}}} \leq \abs{x_{n}}
+                \end{equation*}
+
+                By assumption, $x_{n} \rightarrow 0$, so $\abs{x_{n}} \rightarrow 0$ and hence $f(x_{n}) \rightarrow 0$.
+            \end{eg}
+            \begin{corollary}
+                If $f(x) \rightarrow L_{1}$ and $g(x) \rightarrow L_{2}$ as $x \rightarrow c$, and $f(x) \leq g(x)$ for all $x$, then $L_{1} \leq L_{2}$.
+            \end{corollary}
+            \begin{proof}
+                Let $\xn$ be a sequence such that $x_{n} \rightarrow c$. Then we can define the sequences $a_{n} = f(x_{n})$ and $b_{n} = g(x_{n})$ and $a_{n} \leq b_{n}$ for all $n$. Hence $L_{1} \leq L_{2}$ (shown in earlier sequence theorems).
+            \end{proof}
+            \begin{corollary}
+                Suppose that $f(x) \leq g(x) \leq h(x)$, with $\xlim f(x) = \xlim h(x) = \ell$. Then $\xlim g(x)$ exists with $\xlim g(x) = L$.
+            \end{corollary}
+            \begin{remark}
+                Similarly, all of the standard limits properties for sequences, such as preservation of addition, subtraction, division and multiplication of sequences all apply to functions.
+            \end{remark}
+        \subsection{Continuity}
+        \begin{definition}[Continuity]
+            Let $f$ be a function on a real subset of $X \subseteq \R$, and $f: X \rightarrow \R$. Then for $c \in X$, the function $f$ is \emph{continuous at} $c$ if $\forall \varep > 0$, $\exists \delta > 0$ such that $\forall x$, $0 < \abs{x - c} < \delta$ implies that $\abs{f(x) - f(c)} < \varep$.
+
+            In other words, the limit of $f(x)$ at $x = c$, should be equal to $f(c)$.
+        \end{definition}
+        \begin{definition}
+            Let $x$ be in some neighbourhood about $c$. Take $x = c + \Delta x$, and so $f(x) = f(c + \Delta x)$. Then $x \rightarrow c$ is equivalent to $\Delta x \rightarrow 0$, and $f$ is continuous at $c$ if 
+            \begin{equation*}
+                \lim_{\Delta x \rightarrow 0}f(c + \Delta x) = f(c) ~ \Longleftrightarrow ~ \lim_{\Delta x \rightarrow 0}\left[f(c + \Delta x) - f(c)\right] = 0
+            \end{equation*}
+        \end{definition}
+        \begin{definition}
+            A function $f$ is said to be \emph{everywhere continuous} if for $f: X \rightarrow \R$, then $\forall c \in X$, $\xlim f(x) = f(c)$.
+        \end{definition}
+        \begin{remark}
+            Sometimes when it is said that a 'function is continuous' it is meant that a function is \emph{everywhere continuous}, which means that the function is continuous everywhere on the real subset that it is defined for. 
+
+            An example of where this could matter is a function like $f(x) = \ln(x)$, which is said to be continuous. However, we know that $f(x)$ for $x < 0$ is undefined, so we might wonder, why is it said to be continuous if $f(x)$ doesn't exist for $x < 0$? 
+
+            This is where the distinction between continuous everywhere and continuous is important, as we can say that $f(x) = \ln(x)$ is continuous, as long as we remember that is is standard to have $X = (0, \infty)$, and $f: X \rightarrow \R$.
+
+            A similar situation is $f(x) = \sqrt{x}$, where by not defining the function properly as $f: [0, \infty) \rightarrow \R$, we might expect that saying 'the square root is a continuous function' would imply that $f(x)$ would be continuous at $x = -1$, when this is not the case. 
+
+            Conclusion: when we say a function is \emph{continuous everywhere} or just \emph{continuous}, it is important to properly define the function to avoid confusion with a function being continuous on all of $\R$, instead of a subset of $\R$.
+        \end{remark}
+        \begin{eg}
+            Show that $f(x) = \sin x$ is a continuous function (here we mean $\forall x \in \R$).
+
+            Let $c \in \R$, and we shall show that $\lim_{\Delta x \rightarrow 0}\left[f(c + \Delta x) - f(c)\right] = 0$, $\forall c \in \R$.
+
+            We have that
+            \begin{align*}
+                f(c + \Delta x) - f(c) = \sin(c + \Delta x) - \sin(c) &= 2\sin\brackets{\frac{c + \Delta x - c}{2}}\cos\brackets{\frac{c + \Delta x + c}{2}} \\
+                                                                      &= 2\sin\brackets{\frac{\Delta x}{2}}\cos\brackets{c + \frac{\Delta x}{2}}.
+            \end{align*}
+            Since $\abs{\cos x} \leq 1$ and $\abs{\sin x} \leq \abs{x}$ for all $x$, we have
+            \begin{align*}
+                \abs{f(c + \Delta x) - f(c)} &= \abs{2\sin\brackets{\frac{\Delta x}{2}}\cos\brackets{c + \frac{\Delta x}{2}}} \\
+                                             &\leq 2 \frac{\abs{\Delta x}}{2} = \Delta x.
+            \end{align*}
+
+            Since $\lim_{\Delta x \rightarrow 0}\abs{\Delta x} = 0$, we have by the Squeeze theorem $\forall c \in \R$,
+            \begin{equation*}
+                \lim_{\Delta x \rightarrow 0}\left[f(c + \Delta x) - f(c)\right] = 0.
+            \end{equation*}
+        \end{eg}
+        \begin{eg}
+            Show that $f(x) = \frac{1}{x}$ is continuous for $f: (0, \infty), \rightarrow \R$.
+
+            Let $c \in (0, \infty)$ and $\xn$ be a sequence with $x_{n} \in (0, \infty)$, and $\nlim x_{n} = c$. Then
+            \begin{align*}
+                f(c) = \frac{1}{c} &= \frac{1}{\nlim{x_{n}}} \\
+                                   &= \nlim\frac{1}{x_{n}} = \nlim f(x_{n}).
+            \end{align*} 
+            Hence $f$ is continuous at $c$ for all $c \in (0, \infty)$.
+        \end{eg}
+        \begin{prop}
+            All polynomials $p: \R \rightarrow \R$ are continuous.
+        \end{prop}
+        \begin{proof}
+            Let the polynomial of degree $d$, be given by $p(x) = a_{d}x^{d} + a_{d - 1}x^{d - 1} + \dots + a_{1}x + a_{0}$, for $a_{d} \in \R$, $d \in \Z^{+}$.
+
+            Take $c \in \R$ and define the sequence $\xn$ with $\nlim x_{n} = c$.
+            Then
+            \begin{align*}
+                f(c) &= a_{d}c^{d} + a_{d - 1}c^{d - 1} + \dots + a_{1}c + a_{0} \\
+                     &= a_{d}\left[ \nlim x_{n} \right]^{d} + a_{d - 1}\left[ \nlim x_{n} \right]^{d - 1} + \dots + a_{1}\left[ \nlim x_{n} \right] + a_{0} \\
+                     &= \nlim\left[ a_{d}x_{n}^{d} + a_{d - 1}x_{n}^{d - 1} + \dots + a_{1}x_{n} + a_{0}\right] \\
+                     &= f(x_{n}).
+            \end{align*}
+            Hence $f$ is continuous at $c$, $\forall c \in \R$. 
+        \end{proof}
+        \newpage
+        \begin{prop}
+            The composition of continuous functions is also continuous. That is, if $f: X \rightarrow Y$ and $g: Y \rightarrow Z$ are continuous, with $X, Y, Z \subseteq \R$, with $f$ being continuous at every point $c \in X$, and $g$ cotninuous at every point in $f(c) \in Y$, then $(g \circ f)(x): X \rightarrow Z$, and $(g \circ f)(x) = g(f(x))$ is continuous at every point $c \in X$.
+        \end{prop}
+        \begin{corollary}[The Algebraic Limit Theorem]
+            Any standard operation ($+$, $-$, $\times$, $\div$) on continuous functions, is also continuous.
+        \end{corollary}
+        \begin{remark}
+            A consequence of this, is that for any continuous functions $f$ and $g$ at a point $c$, $\xlim f(g(x)) = f(\xlim g(x))$.
+        \end{remark}
+
+        \subsection{The Properties of Continuous Functions}
+        Continuous functions satisfy three important properties which we shall cover. These being,
+        \begin{enumerate}
+            \item \textbf{Boundedness}(Weierstrass's First Theorem)
+            \item \textbf{The Extreme Value Theorem}
+            \item \textbf{The Intermediate Value Theorem}
+        \end{enumerate}
+        \begin{lemma}
+            A continuous function $f: [a, b] \rightarrow \R$ is bounded.
+        \end{lemma}
+        \begin{proof}
+            To-do later (proof in lecture 11)
+        \end{proof}
+        \begin{theorem}[Weierstrass's First Theorem]
+            All continuous functions defined on a bounded subset are bounded
+        \end{theorem}
+        \begin{proof}
+            To-do later (proof in lecture 12)
+        \end{proof}
+        \begin{remark}
+            It is important to specify that $f: [a, b] \rightarrow \R$ and not $f: \R \rightarrow \R$, or $f: (a, b] \rightarrow \R$ (or $[a, b)$). As boundedness of continuous functions only holds on bounded and closed intervals. An example is $f(x) = \ln(x)$, as $f$ is continuous for all $x \in (0, e)$, but even though $\xlim f(e) = 1$, $\lim_{x \rightarrow 0^{+}}f(x) = -\infty$. So for this property to hold, a function must also be \emph{continuous at it's endpoints}.
+        \end{remark}
+        \begin{theorem}[Extreme Value Theorem]
+            If $f: [a, b] \rightarrow \R$, is continuous ($\forall x \in [a, b]$), then it attains a maximum and a minimum in $[a, b]$. 
+
+            So, there eixsts a point $c \in [a, b]$ such that $f(x) \leq f(c)$, $\forall x \in [a, b]$.
+
+            Similarly, there exists a point $c^{\ast} \in [a, b]$ such that $f(c^{\ast}) \leq f(x)$, $\forall x \in [a, b]$. 
+        \end{theorem}
+        \begin{theorem}[The Intermediate Value Theorem]
+            If $f: [a, b] \rightarrow \R$, is continuous, then there exists a point $c \in (a, b)$ such that $\min(f(a), f(b)) < f(c) < \max{f(a), f(b)}$. 
+        \end{theorem}
+        \begin{corollary}
+            A very useful consequence of the Intermediate Value Theorem (IVT) is that if $\min(f(a), f(b)) < 0$ and $\max(f(a), f(b)) > 0$, then there exists a point $c$ such that $f(c) = 0$. This is a special case of the IVT which is a little easier to prove.
+        \end{corollary}
 \end{document}
